@@ -13,7 +13,7 @@ namespace ToT_Adventure
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
+            using (var game = new ToT())
                 game.Run();
         }
     }
