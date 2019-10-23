@@ -75,7 +75,6 @@ namespace ToT_Adventure
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
