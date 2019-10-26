@@ -52,6 +52,16 @@ namespace ToT_Adventure
             return new Rectangle((int)MousePosition().X - 1, (int)MousePosition().Y - 1, 2, 2);
         }
 
+        public bool MouseDown()
+        {
+            return (mouseState.LeftButton == ButtonState.Pressed);
+        }
+
+        public bool MouseClick()
+        {
+            return (prevMouseState.LeftButton == ButtonState.Pressed && mouseState.LeftButton == ButtonState.Released);
+        }
+
         public bool KeyPressed(Keys key)
         {
             if (keyState.IsKeyDown(key) && prevKeyState.IsKeyUp(key))

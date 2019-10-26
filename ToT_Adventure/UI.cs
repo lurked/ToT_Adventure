@@ -17,6 +17,9 @@ namespace ToT_Adventure
         public bool ToDraw;
         public Toolbox.UIType uiType;
         public Toolbox.UIAlignment uIAlignment;
+        public Rectangle Rectangle;
+        public float BorderSize = 10f;
+        public bool Active = false;
 
         public UI()
         {
@@ -31,12 +34,59 @@ namespace ToT_Adventure
 
         }
 
+        public void RefreshUISize()
+        {
+            int fX = 0;
+            int fY = 0;
+            float currX = 0;
+            float currY = 0;
+            Vector2 vUIISize = new Vector2();
+
+            switch (uIAlignment)
+            {
+                case Toolbox.UIAlignment.Vertical:
+                    foreach (var UII in uiItems)
+                    {
+                        if (UII.ToDraw)
+                        {
+                            vUIISize = ToT.Fonts[UII.Font.ToString()].MeasureString(UII.DisplayText);
+                            UII.UpdateSpecs(Position, new Vector2(currX, currY), vUIISize);
+                            if (fX < vUIISize.X)
+                                fX = (int)vUIISize.X;
+                            fY += (int)vUIISize.Y;
+                            currY += vUIISize.Y;
+                        }
+                    }
+
+                    break;
+                case Toolbox.UIAlignment.Horizontal:
+                    foreach (var UII in uiItems)
+                    {
+                        if (UII.ToDraw)
+                        {
+                            vUIISize = ToT.Fonts[UII.Font.ToString()].MeasureString(UII.DisplayText);
+                            UII.UpdateSpecs(Position, new Vector2(currX, currY), vUIISize);
+                            fX += (int)vUIISize.X;
+                            if (fY < (int)vUIISize.Y)
+                                fY = (int)vUIISize.Y;
+                            currX += vUIISize.Y;
+                        }
+                    }
+                    break;
+            }
+            Rectangle = new Rectangle((int)Position.X, (int)Position.Y, fX, fY);
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             Vector2 tStrSize = new Vector2();
             foreach (var UII in uiItems)
             {
-                switch(uIAlignment)
+                if (UII.ToDraw)
+                {
+                    UII.Draw(spriteBatch, Position + tStrSize);
+                }
+                switch (uIAlignment)
                 {
                     case Toolbox.UIAlignment.Vertical:
                         tStrSize += new Vector2(0, ToT.Fonts[UII.Font.ToString()].MeasureString(UII.DisplayText).Y);
@@ -44,10 +94,6 @@ namespace ToT_Adventure
                     case Toolbox.UIAlignment.Horizontal:
                         tStrSize += new Vector2(ToT.Fonts[UII.Font.ToString()].MeasureString(UII.DisplayText).X, 0);
                         break;
-                }
-                if (UII.ToDraw)
-                {
-                    UII.Draw(spriteBatch, Position + tStrSize);
                 }
             }
         }

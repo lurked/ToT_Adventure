@@ -20,6 +20,7 @@ namespace ToT_Adventure
         public static Dictionary<string, Texture2D> Textures;
         public static ContentManager ContentMgr;
         public static Toolbox.GameState State = Toolbox.GameState.MainMenu;
+        public static UIAction UIAction;
 
         public ToT()
         {
@@ -111,10 +112,21 @@ namespace ToT_Adventure
         protected override void Update(GameTime gameTime)
         {
             input.Update();
+            screenManager.CheckMouseCollision(input.MousePosition());
             screenManager.Update(gameTime, input);
 
             if (input.ButtonPressed(Buttons.Back) || input.KeyPressed(Keys.Escape))
                 Exit();
+
+            if (UIAction != null)
+            {
+                switch (UIAction.Action)
+                {
+                    case Toolbox.UIAction.MainMenu_Exit:
+                        Exit();
+                        break;
+                }
+            }
 
             base.Update(gameTime);
         }

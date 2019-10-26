@@ -19,14 +19,15 @@ namespace ToT_Adventure
             MainMenu,
             GameMap,
             GameLevel,
-            GameOver
+            GameOver,
+            Quitting
         }
         
         public enum ScreenType
         {
             MainMenu,
-            Game,
-            Splash,
+            GameMap,
+            GameLevel,
             GameOver
         }
         public enum Font
@@ -71,6 +72,21 @@ namespace ToT_Adventure
             Vertical,
             Horizontal,
             FreeRoam
+        }
+        public enum UIAction
+        {
+            Nothing,
+            MainMenu_NewGame,
+            MainMenu_LoadGame,
+            MainMenu_Settings,
+            MainMenu_Exit,
+            MainMenu
+        }
+
+        public enum CollisionType
+        {
+            Mouse_Menu,
+            Mouse_Entity
         }
 
         #endregion
