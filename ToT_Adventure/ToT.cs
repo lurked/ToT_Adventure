@@ -19,11 +19,7 @@ namespace ToT_Adventure
         public static Dictionary<string, SpriteFont> Fonts;
         public static Dictionary<string, Texture2D> Textures;
         public static ContentManager ContentMgr;
-
-
-        Starfield starfield;
-
-        
+        public static Toolbox.GameState State = Toolbox.GameState.MainMenu;
 
         public ToT()
         {
@@ -47,17 +43,18 @@ namespace ToT_Adventure
         {
             base.Initialize();
 
-            input = new InputManager();
-
-            screenManager = new ScreenManager();
-            ContentMgr = Content;
             Fonts = new Dictionary<string, SpriteFont>();
             Textures = new Dictionary<string, Texture2D>();
+            ContentMgr = Content;
 
             InitializeFonts();
             InitializeTextures();
 
-            starfield = new Starfield((int)(settings.Resolution.X * 1.5f), (int)(settings.Resolution.Y * 1.5f), 200, new Vector2(10f, 10f), Textures["star03"], new Rectangle(0, 0, 7, 7));
+            input = new InputManager();
+
+            screenManager = new ScreenManager();
+            screenManager.LoadContent();
+
         }
 
         private void InitializeFonts()
@@ -108,18 +105,18 @@ namespace ToT_Adventure
             settings = null;
             input = null;
             Textures = null;
-            starfield = null;
+            screenManager.UnloadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
             input.Update();
+            screenManager.Update(gameTime, input);
 
             if (input.ButtonPressed(Buttons.Back) || input.KeyPressed(Keys.Escape))
                 Exit();
 
             base.Update(gameTime);
-            starfield.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -129,7 +126,6 @@ namespace ToT_Adventure
             spriteBatch.Begin();
 
             base.Draw(gameTime);
-            starfield.Draw(spriteBatch);
             screenManager.Draw(spriteBatch);
 
             spriteBatch.End();

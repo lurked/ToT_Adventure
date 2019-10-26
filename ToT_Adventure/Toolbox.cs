@@ -14,6 +14,14 @@ namespace ToT_Adventure
         #endregion
 
         #region enums
+        public enum GameState
+        {
+            MainMenu,
+            GameMap,
+            GameLevel,
+            GameOver
+        }
+        
         public enum ScreenType
         {
             MainMenu,
@@ -29,6 +37,40 @@ namespace ToT_Adventure
             menuItem01,
             menuItem02,
             menuItem03
+        }
+        public enum TextAlignment
+        {
+            TopLeft,
+            MiddleLeft,
+            BottomLeft,
+            TopCenter,
+            MiddleCenter,
+            BottomCenter,
+            TopRight,
+            MiddleRight,
+            BottomRight
+        }
+        public enum UIType
+        {
+            Basic,
+            BasicInvis,
+            BasicOpaque
+        }
+        public enum UIItemType
+        {
+            TextFix,
+            TextFloating,
+            ImageFix,
+            ImageFloating,
+            TextImage,
+            ImageText
+        }
+
+        public enum UIAlignment
+        {
+            Vertical,
+            Horizontal,
+            FreeRoam
         }
 
         #endregion

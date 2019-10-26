@@ -21,29 +21,51 @@ namespace ToT_Adventure
 
         public virtual void Initialize()
         {
-
         }
 
         public virtual void LoadContent()
         {
-
+            Screens[Toolbox.ScreenType.MainMenu].LoadAssets();
         }
 
         public virtual void UnloadContent()
         {
-
+            Screens[Toolbox.ScreenType.MainMenu].UnloadAssets();
         }
 
-        public virtual void Update()
+        public virtual void Update(GameTime gameTime, InputManager input)
         {
-
+            switch (ToT.State)
+            {
+                case Toolbox.GameState.MainMenu:
+                    Screens[Toolbox.ScreenType.MainMenu].Update(gameTime, input);
+                    break;
+                case Toolbox.GameState.GameMap:
+                    break;
+                case Toolbox.GameState.GameLevel:
+                    break;
+                case Toolbox.GameState.GameOver:
+                    break;
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            foreach (KeyValuePair<Toolbox.ScreenType, Screen> screen in Screens)
+            //foreach (KeyValuePair<Toolbox.ScreenType, Screen> screen in Screens)
+            //{
+            //    screen.Value.Draw(spriteBatch);
+            //}
+            switch (ToT.State)
             {
-                screen.Value.Draw(spriteBatch);
+                case Toolbox.GameState.MainMenu:
+                    Screens[Toolbox.ScreenType.MainMenu].Draw(spriteBatch);
+                    break;
+                case Toolbox.GameState.GameMap:
+                    break;
+                case Toolbox.GameState.GameLevel:
+                    break;
+                case Toolbox.GameState.GameOver:
+                    break;
             }
         }
     }
