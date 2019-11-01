@@ -13,7 +13,7 @@ namespace ToT_Adventure
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public static Settings settings;
+        public static Settings Settings;
         public static InputManager input;
         public static ScreenManager screenManager;
         public static Dictionary<string, SpriteFont> Fonts;
@@ -21,15 +21,20 @@ namespace ToT_Adventure
         public static ContentManager ContentMgr;
         public static Toolbox.GameState State = Toolbox.GameState.MainMenu;
         public static UIAction UIAction;
+        public static bool DebugMode = false;
+        public static Camera PlayerCamera;
+
+        private FrameCounter FrameCounter = new FrameCounter();
 
         public ToT()
         {
             graphics = new GraphicsDeviceManager(this);
-            settings = new Settings();
-            graphics.PreferredBackBufferWidth = (int)settings.Resolution.X;
-            graphics.PreferredBackBufferHeight = (int)settings.Resolution.Y;
+            Settings = new Settings();
+            graphics.PreferredBackBufferWidth = (int)Settings.Resolution.X;
+            graphics.PreferredBackBufferHeight = (int)Settings.Resolution.Y;
             graphics.IsFullScreen = false;
             graphics.SynchronizeWithVerticalRetrace = false;
+            IsFixedTimeStep = false;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
@@ -52,6 +57,10 @@ namespace ToT_Adventure
             InitializeTextures();
 
             input = new InputManager();
+
+            Camera tCam = new Camera(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            PlayerCamera = tCam;
+            PlayerCamera.SetFocalPoint(new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2));
 
             screenManager = new ScreenManager();
             screenManager.LoadContent();
@@ -103,7 +112,7 @@ namespace ToT_Adventure
         protected override void UnloadContent()
         {
             ContentMgr.Unload();
-            settings = null;
+            Settings = null;
             input = null;
             Textures = null;
             screenManager.UnloadContent();
@@ -118,6 +127,12 @@ namespace ToT_Adventure
             if (input.ButtonPressed(Buttons.Back) || input.KeyPressed(Keys.Escape))
                 Exit();
 
+            if (input.KeyPressed(Keys.F12))
+                if (DebugMode)
+                    DebugMode = false;
+                else
+                    DebugMode = true;
+
             if (UIAction != null)
             {
                 switch (UIAction.Action)
@@ -131,14 +146,27 @@ namespace ToT_Adventure
             base.Update(gameTime);
         }
 
+        private void ShowFPS(GameTime gameTime)
+        {
+            if (DebugMode)
+            {
+                var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                FrameCounter.Update(deltaTime);
+                var fps = string.Format("FPS: {0}", Math.Round(FrameCounter.AverageFramesPerSecond));
+                spriteBatch.DrawString(Fonts[Toolbox.Font.debug01.ToString()], fps, ToT.PlayerCamera.Position + new Vector2(Settings.Resolution.X - 80, 0), Color.CornflowerBlue, 0f, Vector2.Zero, 0.6f, SpriteEffects.None, 0f);
+            }
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap, null, null, null, PlayerCamera.ViewMatrix);
 
             base.Draw(gameTime);
             screenManager.Draw(spriteBatch);
+
+            ShowFPS(gameTime);
 
             spriteBatch.End();
         }

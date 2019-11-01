@@ -38,6 +38,7 @@ namespace ToT_Adventure
 
         public virtual void Update(GameTime gameTime, InputManager input)
         {
+            ToT.PlayerCamera.Update();
             switch (ToT.State)
             {
                 case Toolbox.GameState.MainMenu:
@@ -48,6 +49,7 @@ namespace ToT_Adventure
                     break;
                 case Toolbox.GameState.GameLevel:
                     Screens[Toolbox.ScreenType.GameLevel].Update(gameTime, input);
+                    ToT.PlayerCamera.Update();
                     break;
                 case Toolbox.GameState.GameOver:
                     Screens[Toolbox.ScreenType.GameOver].Update(gameTime, input);
@@ -135,6 +137,7 @@ namespace ToT_Adventure
                         Screens.Add(Toolbox.ScreenType.GameMap, new GameMapScreen());
                     ToT.State = Toolbox.GameState.GameMap;
                     Screens[Toolbox.ScreenType.GameMap].LoadAssets();
+                    ToT.PlayerCamera.SetFocalPoint(new Vector2());
                     break;
                 case Toolbox.UIAction.MainMenu:
                     ToT.State = Toolbox.GameState.MainMenu;

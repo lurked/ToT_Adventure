@@ -16,12 +16,14 @@ namespace ToT_Adventure
         public string ConfigName { get; set; }
         public Vector2 Resolution { get; set; }
         public Vector2 TileSize { get; set; }
+        public float BorderSize { get; set; }
 
         public Settings(string configName = "default")
         {
             ConfigName = configName;
             Resolution = new Vector2(1440, 900);
             TileSize = new Vector2(72, 72);
+            BorderSize = 1f;
         }
 
         public void Save()

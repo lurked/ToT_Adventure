@@ -69,7 +69,7 @@ namespace ToT_Adventure
 
         public void Draw(SpriteBatch spriteBatch, Vector2 uiiPosition)
         {
-            spriteBatch.DrawString(ToT.Fonts[Font.ToString()], DisplayText, uiiPosition, Active ? ActiveColor : TextColor);
+            spriteBatch.DrawString(ToT.Fonts[Font.ToString()], DisplayText, uiiPosition + ToT.PlayerCamera.Position, (Active && Action.Action != Toolbox.UIAction.Nothing) ? ActiveColor : TextColor);
             //spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug01.ToString()], uiiPosition.ToString(), uiiPosition, Active ? ActiveColor : TextColor);
         }
     }

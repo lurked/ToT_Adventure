@@ -13,6 +13,7 @@ namespace ToT_Adventure
     {
         Starfield starfield;
         Vector2 MousePos;
+        GameMap GameMap;
 
         #region MenuUIs
         private void GenerateUI_GameMap()
@@ -20,7 +21,7 @@ namespace ToT_Adventure
             UI mMenuUI = new UI();
             UIItem mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "New Game", new UIAction(), Toolbox.Font.logo01, Toolbox.TextAlignment.TopLeft);
             mMenuUI.uiItems.Add(mMenuUII);
-            mMenuUI.Position = new Vector2((ToT.settings.Resolution.X - ToT.Fonts[Toolbox.Font.logo01.ToString()].MeasureString(mMenuUII.DisplayText).X) / 2, ToT.settings.Resolution.Y / 20);
+            mMenuUI.Position = new Vector2((ToT.Settings.Resolution.X - ToT.Fonts[Toolbox.Font.logo01.ToString()].MeasureString(mMenuUII.DisplayText).X) / 2, ToT.Settings.Resolution.Y / 20);
             mMenuUI.RefreshUISize();
 
             UIs.Add("newGameLogo", mMenuUI);
@@ -33,7 +34,7 @@ namespace ToT_Adventure
             mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "< Back", new UIAction(Toolbox.UIAction.MainMenu), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
             mMenuUI.uiItems.Add(mMenuUII);
             Vector2 uiiSize = ToT.Fonts[Toolbox.Font.menuItem02.ToString()].MeasureString(mMenuUII.DisplayText);
-            mMenuUI.Position = new Vector2(10, ToT.settings.Resolution.Y - (uiiSize.Y * mMenuUI.uiItems.Count()) - 5);
+            mMenuUI.Position = new Vector2(10, ToT.Settings.Resolution.Y - (uiiSize.Y * mMenuUI.uiItems.Count()) - 5);
             mMenuUI.RefreshUISize();
 
             UIs.Add("BackMenu", mMenuUI);
@@ -46,7 +47,8 @@ namespace ToT_Adventure
             base.LoadAssets();
             GenerateUI_GameMap();
             GenerateUI_BackMenu();
-            starfield = new Starfield((int)(ToT.settings.Resolution.X * 1.5f), (int)(ToT.settings.Resolution.Y * 1.5f), 200, new Vector2(10f, 10f), ToT.Textures["star03"], new Rectangle(0, 0, 7, 7));
+            starfield = new Starfield((int)(ToT.Settings.Resolution.X * 1.5f), (int)(ToT.Settings.Resolution.Y * 1.5f), 200, new Vector2(10f, 10f), ToT.Textures["star03"], new Rectangle(0, 0, 7, 7));
+            GameMap = new GameMap();
         }
 
         public override void UnloadAssets()
@@ -67,6 +69,29 @@ namespace ToT_Adventure
         {
             starfield.Draw(spriteBatch);
             base.Draw(spriteBatch);
+            Vector2 vCamOffset;
+            switch(ToT.State)
+            {
+                case Toolbox.GameState.GameMap:
+                    vCamOffset = ToT.PlayerCamera.Position;
+                    break;
+                case Toolbox.GameState.GameLevel:
+                    vCamOffset = ToT.PlayerCamera.Position;
+                    break;
+                default:
+                    vCamOffset = new Vector2();
+                    break;
+            }
+            //Draw each tile to its corresponding position according to the tile size and border size.
+            foreach (KeyValuePair<Vector2, Tile> tile in GameMap.Map)
+            {
+                spriteBatch.Draw(
+                    ToT.Textures[tile.Value.ImageName], 
+                    tile.Key * ToT.Settings.TileSize + (new Vector2(ToT.Settings.BorderSize, ToT.Settings.BorderSize) * tile.Key), 
+                    null, 
+                    Color.White
+                );
+            }
         }
     }
 }

@@ -89,6 +89,16 @@ namespace ToT_Adventure
             Mouse_Entity
         }
 
+        public enum TileType
+        {
+            Home,
+            Dirt,
+            Plains,
+            Forest,
+            Dungeon,
+            Castle
+        }
+
         #endregion
     }
 }

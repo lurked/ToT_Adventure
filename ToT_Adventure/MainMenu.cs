@@ -20,7 +20,7 @@ namespace ToT_Adventure
             UI mMenuUI = new UI();
             UIItem mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "Tales of Tiles", new UIAction(), Toolbox.Font.logo01, Toolbox.TextAlignment.TopLeft);
             mMenuUI.uiItems.Add(mMenuUII);
-            mMenuUI.Position = new Vector2((ToT.settings.Resolution.X - ToT.Fonts[Toolbox.Font.logo01.ToString()].MeasureString(mMenuUII.DisplayText).X) / 2, ToT.settings.Resolution.Y / 20);
+            mMenuUI.Position = new Vector2((ToT.Settings.Resolution.X - ToT.Fonts[Toolbox.Font.logo01.ToString()].MeasureString(mMenuUII.DisplayText).X) / 2, ToT.Settings.Resolution.Y / 20);
             mMenuUI.RefreshUISize();
 
             UIs.Add("mMenuLogo", mMenuUI);
@@ -39,7 +39,7 @@ namespace ToT_Adventure
             mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "Exit", new UIAction(Toolbox.UIAction.MainMenu_Exit), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
             mMenuUI.uiItems.Add(mMenuUII);
             Vector2 uiiSize = ToT.Fonts[Toolbox.Font.menuItem02.ToString()].MeasureString(mMenuUII.DisplayText);
-            mMenuUI.Position = new Vector2(10, ToT.settings.Resolution.Y - (uiiSize.Y * mMenuUI.uiItems.Count()) - 5);
+            mMenuUI.Position = new Vector2(10, ToT.Settings.Resolution.Y - (uiiSize.Y * mMenuUI.uiItems.Count()) - 5);
             mMenuUI.RefreshUISize();
 
             UIs.Add("mMenu", mMenuUI);
@@ -52,7 +52,7 @@ namespace ToT_Adventure
             base.LoadAssets();
             GenerateUI_MMenuLogo();
             GenerateUI_MMenu();
-            starfield = new Starfield((int)(ToT.settings.Resolution.X * 1.5f), (int)(ToT.settings.Resolution.Y * 1.5f), 200, new Vector2(10f, 10f), ToT.Textures["star03"], new Rectangle(0, 0, 7, 7));
+            starfield = new Starfield((int)(ToT.Settings.Resolution.X * 1.5f), (int)(ToT.Settings.Resolution.Y * 1.5f), 200, new Vector2(10f, 10f), ToT.Textures["star03"], new Rectangle(0, 0, 7, 7));
         }
 
         public override void UnloadAssets()

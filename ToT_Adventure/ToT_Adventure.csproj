@@ -43,14 +43,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FileManager.cs" />
+    <Compile Include="FrameCounter.cs" />
+    <Compile Include="GameMap.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="GameMapScreen.cs" />
     <Compile Include="MainMenu.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="ScreenManager.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Starfield.cs" />
     <Compile Include="Star.cs" />
+    <Compile Include="Tile.cs" />
     <Compile Include="Toolbox.cs" />
     <Compile Include="ToT.cs" />
     <Compile Include="Program.cs" />
@@ -158,6 +162,24 @@
   <ItemGroup>
     <Content Include="Resources\sprites\character_32x48.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\cotton_green_72.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\dirt_144.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\dirt_72.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\main_01_144.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\main_01_72.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\pal_green_144.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\star03.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
