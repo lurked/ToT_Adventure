@@ -11,7 +11,6 @@ namespace ToT_Adventure
 {
     public class GameMapScreen : Screen 
     {
-        Starfield starfield;
         Vector2 MousePos;
         GameMap GameMap;
 
@@ -47,7 +46,6 @@ namespace ToT_Adventure
             base.LoadAssets();
             GenerateUI_GameMap();
             GenerateUI_BackMenu();
-            starfield = new Starfield((int)(ToT.Settings.Resolution.X * 1.5f), (int)(ToT.Settings.Resolution.Y * 1.5f), 200, new Vector2(10f, 10f), ToT.Textures["star03"], new Rectangle(0, 0, 7, 7));
             GameMap = new GameMap();
         }
 
@@ -55,19 +53,16 @@ namespace ToT_Adventure
         {
             base.UnloadAssets();
             UIs = null;
-            starfield = null;
         }
 
         public override void Update(GameTime gameTime, InputManager input)
         {
             base.Update(gameTime, input);
-            starfield.Update(gameTime);
             MousePos = input.MousePosition();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            starfield.Draw(spriteBatch);
             base.Draw(spriteBatch);
             Vector2 vCamOffset;
             switch(ToT.State)
