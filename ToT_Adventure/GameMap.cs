@@ -17,8 +17,10 @@ namespace ToT_Adventure
 
         public GameMap()
         {
-            Map = GenerateMap("base");
-            player = new Player();
+            if (Map == null)
+                Map = GenerateMap("base");
+            if (player == null)
+                player = new Player();
         }
 
         private Dictionary<Vector2, Tile> GenerateMap(string mapType)

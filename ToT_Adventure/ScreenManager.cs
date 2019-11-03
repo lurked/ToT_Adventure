@@ -94,7 +94,7 @@ namespace ToT_Adventure
                 case Toolbox.CollisionType.Mouse_Menu:
                     foreach (KeyValuePair<string, UI> ui in screen.UIs)
                     {
-                        if (ui.Value.ToDraw)
+                        if (ui.Value.Visible)
                         {
                             if (ui.Value.Rectangle.Intersects(ToT.input.MouseRect()))
                             {
@@ -102,14 +102,14 @@ namespace ToT_Adventure
 
                                 foreach(UIItem uii in ui.Value.uiItems)
                                 {
-                                    if (uii.ToDraw)
+                                    if (uii.Visible)
                                     {
                                         if (uii.GetRectangle().Intersects(ToT.input.MouseRect()))
                                         {
                                             uii.Active = true;
                                             if (ToT.input.MouseClick())
                                             {
-                                                menuAction = uii.Action;
+                                                DoAction(screen, uii.Action, ui.Value);
                                             }
                                         }
                                         else
@@ -135,13 +135,13 @@ namespace ToT_Adventure
 
                     break;
             }
-            if (menuAction.Action != Toolbox.UIAction.Nothing)
-            {
-                DoAction(menuAction);
-            }
+            //if (menuAction.Action != Toolbox.UIAction.Nothing)
+            //{
+                
+            //}
         }
 
-        public void DoAction(UIAction menuAction)
+        public void DoAction(Screen screen, UIAction menuAction, UI ui)
         {
             switch (menuAction.Action)
             {
@@ -176,8 +176,35 @@ namespace ToT_Adventure
                 case Toolbox.UIAction.MainMenu_Exit:
                     ToT.UIAction = menuAction;
                     break;
+                case Toolbox.UIAction.GameMap_Exit:
+                    ((GameMapScreen)screen).Save();
+                    ToT.UIAction = menuAction;
+                    break;
+                case Toolbox.UIAction.GameMap_MainMenu:
+                    ((GameMapScreen)screen).Save();
+                    ToT.State = Toolbox.GameState.MainMenu;
+                    ToT.PlayerCamera.SetFocalPoint(Vector2.Zero + ToT.Settings.Resolution / 2);
+                    break;
                 case Toolbox.UIAction.GameMap_SaveGame:
                     Screens[Toolbox.ScreenType.GameMap].Save();
+                    break;
+                case Toolbox.UIAction.Toggle_UII:
+                    string[] split = menuAction.ActionParam.Split(',');
+                    foreach(UIItem uii in ui.uiItems)
+                        if (split.Contains(uii.Name))
+                            uii.Visible = !uii.Visible;
+                    ui.RefreshUISize();
+
+                    if (ui.Position.X + ui.Rectangle.Width > ToT.Settings.Resolution.X)
+                        ui.Position = new Vector2(ToT.Settings.Resolution.X - (float)ui.Rectangle.Width, ui.Position.Y);
+                    if (ui.Position.Y + ui.Rectangle.Height > ToT.Settings.Resolution.Y)
+                        ui.Position = new Vector2(ui.Position.X, ToT.Settings.Resolution.Y - (float)ui.Rectangle.Height);
+
+                    if (ui.Position.X < 0f)
+                        ui.Position = new Vector2(0f, ui.Position.Y);
+                    if (ui.Position.Y < 0f)
+                        ui.Position = new Vector2(ui.Position.X, 0f);
+                    ui.RefreshUISize();
                     break;
             }
         }

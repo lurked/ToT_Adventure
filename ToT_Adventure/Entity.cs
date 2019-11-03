@@ -16,7 +16,7 @@ namespace ToT_Adventure
         public string ImageName { get; set; }
         public Vector2 TileIndex { get; set; }
         public Vector2 Position { get; set; }
-        public bool ToDraw { get; set; } = true;
+        public bool Visible { get; set; } = true;
         protected Dictionary<Toolbox.Stat, float> Stats;
         protected Dictionary<Toolbox.Stat, float> Bonus;
 

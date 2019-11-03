@@ -22,7 +22,7 @@ namespace ToT_Adventure
         {
             ConfigName = configName;
             Resolution = new Vector2(1440, 900);
-            TileSize = new Vector2(72, 72);
+            TileSize = new Vector2(128, 128);
             BorderSize = 1f;
         }
 

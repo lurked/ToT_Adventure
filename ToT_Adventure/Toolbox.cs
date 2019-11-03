@@ -33,6 +33,11 @@ namespace ToT_Adventure
             GameOver,
             LoadGame
         }
+        public enum TileSize
+        {
+            x72y72,
+            x128y128
+        }
         public enum Font
         {
             logo01,
@@ -85,7 +90,10 @@ namespace ToT_Adventure
             MainMenu_Exit,
             MainMenu,
             GameMap_SaveGame,
-            GameMap_LoadGame
+            GameMap_LoadGame,
+            GameMap_MainMenu,
+            GameMap_Exit,
+            Toggle_UII
         }
 
         public enum CollisionType

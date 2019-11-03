@@ -13,7 +13,8 @@ namespace ToT_Adventure
         public Player()
         {
             Kind = Toolbox.EntityType.Player;
-            TileIndex = Vector2.Zero;
+            if (TileIndex == null)
+                TileIndex = Vector2.Zero;
         }
     }
 }

@@ -18,32 +18,32 @@ namespace ToT_Adventure
         private void GenerateUI_MMenuLogo()
         {
             UI mMenuUI = new UI();
-            UIItem mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "Tales of Tiles", new UIAction(), Toolbox.Font.logo01, Toolbox.TextAlignment.TopLeft);
+            UIItem mMenuUII = new UIItem("logomainmenu", Toolbox.UIItemType.TextFix, "Tales of Tiles", new UIAction(), Toolbox.Font.logo01, Toolbox.TextAlignment.TopLeft);
             mMenuUI.uiItems.Add(mMenuUII);
             mMenuUI.Position = new Vector2((ToT.Settings.Resolution.X - ToT.Fonts[Toolbox.Font.logo01.ToString()].MeasureString(mMenuUII.DisplayText).X) / 2, ToT.Settings.Resolution.Y / 20);
             mMenuUI.RefreshUISize();
 
             UIs.Add("mMenuLogo", mMenuUI);
-            UIs["mMenuLogo"].ToDraw = true;
+            UIs["mMenuLogo"].Visible = true;
         }
         private void GenerateUI_MMenu()
         {
             UI mMenuUI = new UI();
             UIItem mMenuUII;
-            mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "New Game", new UIAction(Toolbox.UIAction.MainMenu_NewGame),Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
+            mMenuUII = new UIItem("newgame", Toolbox.UIItemType.TextFix, "New Game", new UIAction(Toolbox.UIAction.MainMenu_NewGame),Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
             mMenuUI.uiItems.Add(mMenuUII);
-            mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "Load Game", new UIAction(Toolbox.UIAction.MainMenu_LoadGame), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
+            mMenuUII = new UIItem("loadgame", Toolbox.UIItemType.TextFix, "Load Game", new UIAction(Toolbox.UIAction.MainMenu_LoadGame), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
             mMenuUI.uiItems.Add(mMenuUII);
-            mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "Settings", new UIAction(Toolbox.UIAction.MainMenu_Settings), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
+            mMenuUII = new UIItem("settings", Toolbox.UIItemType.TextFix, "Settings", new UIAction(Toolbox.UIAction.MainMenu_Settings), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
             mMenuUI.uiItems.Add(mMenuUII);
-            mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "Exit", new UIAction(Toolbox.UIAction.MainMenu_Exit), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
+            mMenuUII = new UIItem("exit", Toolbox.UIItemType.TextFix, "Exit", new UIAction(Toolbox.UIAction.MainMenu_Exit), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
             mMenuUI.uiItems.Add(mMenuUII);
             Vector2 uiiSize = ToT.Fonts[Toolbox.Font.menuItem02.ToString()].MeasureString(mMenuUII.DisplayText);
             mMenuUI.Position = new Vector2(10, ToT.Settings.Resolution.Y - (uiiSize.Y * mMenuUI.uiItems.Count()) - 5);
             mMenuUI.RefreshUISize();
 
             UIs.Add("mMenu", mMenuUI);
-            UIs["mMenu"].ToDraw = true;
+            UIs["mMenu"].Visible = true;
         }
         #endregion
 

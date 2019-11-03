@@ -13,9 +13,9 @@ namespace ToT_Adventure
 {
     public class GameMapScreen : Screen 
     {
-        Vector2 MousePos;
         public GameMap GameMap { get; set; }
-        string SaveFile;
+
+        readonly string SaveFile;
 
 
         public GameMapScreen(string saveFile = "")
@@ -23,29 +23,49 @@ namespace ToT_Adventure
             SaveFile = saveFile;
         }
         #region MenuUIs
-        private void GenerateUI_GameMap()
-        {
-            UI mMenuUI = new UI();
-            UIItem mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "New Game", new UIAction(), Toolbox.Font.logo01, Toolbox.TextAlignment.TopLeft);
-            mMenuUI.uiItems.Add(mMenuUII);
-            mMenuUI.Position = new Vector2((ToT.Settings.Resolution.X - ToT.Fonts[Toolbox.Font.logo01.ToString()].MeasureString(mMenuUII.DisplayText).X) / 2, ToT.Settings.Resolution.Y / 20);
-            mMenuUI.RefreshUISize();
+        //private void GenerateUI_GameMap()
+        //{
+        //    UI mMenuUI = new UI();
+        //    UIItem mMenuUII = new UIItem("newgame", Toolbox.UIItemType.TextFix, "New Game", new UIAction(), Toolbox.Font.logo01, Toolbox.TextAlignment.TopLeft);
+        //    mMenuUI.uiItems.Add(mMenuUII);
+        //    mMenuUI.Position = new Vector2((ToT.Settings.Resolution.X - ToT.Fonts[Toolbox.Font.logo01.ToString()].MeasureString(mMenuUII.DisplayText).X) / 2, ToT.Settings.Resolution.Y / 20);
+        //    mMenuUI.RefreshUISize();
 
-            UIs.Add("newGameLogo", mMenuUI);
-            UIs["newGameLogo"].ToDraw = true;
-        }
+        //    UIs.Add("newGameLogo", mMenuUI);
+        //    UIs["newGameLogo"].Visible = true;
+        //}
         private void GenerateUI_SaveMenu()
         {
             UI mMenuUI = new UI();
             UIItem mMenuUII;
-            mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "Save Game", new UIAction(Toolbox.UIAction.GameMap_SaveGame), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
+            mMenuUII = new UIItem("game", Toolbox.UIItemType.ImageFix, "Game", new UIAction(Toolbox.UIAction.Toggle_UII, "savegame,leavegame,exit"), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter, "gear_24");
             mMenuUI.uiItems.Add(mMenuUII);
+
+            mMenuUII = new UIItem("savegame", Toolbox.UIItemType.TextFix, "Save Game", new UIAction(Toolbox.UIAction.GameMap_SaveGame), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter)
+            {
+                Visible = false
+            };
+            mMenuUI.uiItems.Add(mMenuUII); 
+
+            mMenuUII = new UIItem("leavegame", Toolbox.UIItemType.TextFix, "Leave Game", new UIAction(Toolbox.UIAction.GameMap_MainMenu), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter)
+            {
+                Visible = false
+            };
+            mMenuUI.uiItems.Add(mMenuUII); 
+
+            mMenuUII = new UIItem("exit", Toolbox.UIItemType.TextFix, "Exit to Desktop", new UIAction(Toolbox.UIAction.GameMap_Exit), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter)
+            {
+                Visible = false
+            };
+            mMenuUI.uiItems.Add(mMenuUII);
+
             Vector2 uiiSize = ToT.Fonts[Toolbox.Font.menuItem02.ToString()].MeasureString(mMenuUII.DisplayText);
-            mMenuUI.Position = new Vector2(10, ToT.Settings.Resolution.Y - (uiiSize.Y * mMenuUI.uiItems.Count()) - 5);
+            mMenuUI.RefreshUISize(false);
+            mMenuUI.Position = new Vector2(ToT.Settings.Resolution.X - mMenuUI.Size.X, 0);
             mMenuUI.RefreshUISize();
 
             UIs.Add("BackMenu", mMenuUI);
-            UIs["BackMenu"].ToDraw = true;
+            UIs["BackMenu"].Visible = true;
         }
         #endregion
 
@@ -73,11 +93,10 @@ namespace ToT_Adventure
         public override void Update(GameTime gameTime, InputManager input)
         {
             base.Update(gameTime, input);
-            MousePos = input.MousePosition();
-            UpdatePlayer(gameTime, input);
+            UpdatePlayer(input);
         }
 
-        private void UpdatePlayer(object gameTime, InputManager input)
+        private void UpdatePlayer(InputManager input)
         {
             Vector2 vCurrentPos = GameMap.player.TileIndex;
             if (input.KeyPressed(Keys.Left) || input.KeyPressed(Keys.A))
@@ -110,7 +129,15 @@ namespace ToT_Adventure
         public override void Save()
         {
             string gameSave = JsonConvert.SerializeObject(GameMap);
-            FileManager.SaveToFile(gameSave, "saves", "save" + DateTime.Now.ToShortDateString().Replace("/", "") + DateTime.Now.ToLongTimeString().Replace(":", "").Replace(" AM", "").Replace(" PM", "") + ".tots");
+            FileManager.SaveToFile(
+                gameSave, 
+                "saves", 
+                "save" + DateTime.Now.Year.ToString() + 
+                         DateTime.Now.Month.ToString() + 
+                         DateTime.Now.Day.ToString() + 
+                         DateTime.Now.Hour.ToString() + 
+                         DateTime.Now.Minute.ToString() + 
+                         DateTime.Now.Second.ToString() + ".tots");
         }
 
         public GameMap LoadGame(string saveName)

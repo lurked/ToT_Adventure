@@ -193,6 +193,9 @@
     <Content Include="Resources\sprites\dirt_72.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\sprites\gear_24.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\sprites\light_green_128.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

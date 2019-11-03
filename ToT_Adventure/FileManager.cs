@@ -24,6 +24,7 @@ namespace ToT_Adventure
 
             StreamReader file = new StreamReader(filePath.Contains("Resources\\") ? filePath : "Resources\\" + filePath);
             fileContent = file.ReadToEnd();
+            file.Close();
 
             return fileContent;
         }

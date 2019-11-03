@@ -10,12 +10,13 @@ namespace ToT_Adventure
 {
     public class UIItem
     {
+        public string Name { get; set; }
         public string ImageName { get; set; }
         public string DisplayText { get; set; }
         public Toolbox.TextAlignment TextAlign { get; set; } = Toolbox.TextAlignment.MiddleLeft;
         public Toolbox.UIItemType UIIType { get; set; }
         public bool Active { get; set; }
-        public bool ToDraw { get; set; }
+        public bool Visible { get; set; }
         public Toolbox.Font Font { get; set; }
         public Color TextColor { get; set; }
         public UIAction Action { get; set; }
@@ -32,25 +33,47 @@ namespace ToT_Adventure
                 return SetRectangle(UIPosition, PositionInUI, Size);
         }
 
+        public Vector2 GetSize()
+        {
+            Vector2 vUIISize;
+            if (UIIType == Toolbox.UIItemType.ImageFix ||
+                UIIType == Toolbox.UIItemType.ImageFloating)
+            {
+                vUIISize = new Vector2(ToT.Textures[ImageName].Width, ToT.Textures[ImageName].Height);
+            }
+            else
+            {
+                vUIISize = ToT.Fonts[Font.ToString()].MeasureString(DisplayText);
+            }
+
+            return vUIISize;
+        }
+
         public UIItem()
         {
             DisplayText = "Placeholder Text";
             TextAlign = Toolbox.TextAlignment.MiddleCenter;
             Font = Toolbox.Font.menuItem01;
             TextColor = Color.White;
-            ToDraw = true;
+            Visible = true;
             Action = new UIAction();
             ActiveColor = Color.Red;
+            UIIType = Toolbox.UIItemType.TextFix;
+            ImageName = "colorwheel32.png";
+            Name = "Unnamed UIItem";
         }
-        public UIItem(Toolbox.UIItemType uiiType, string displayText, UIAction action, Toolbox.Font font = Toolbox.Font.menuItem01, Toolbox.TextAlignment textAlign = Toolbox.TextAlignment.MiddleCenter)
+        public UIItem(string name, Toolbox.UIItemType uiiType, string displayText, UIAction action, Toolbox.Font font = Toolbox.Font.menuItem01, Toolbox.TextAlignment textAlign = Toolbox.TextAlignment.MiddleCenter, string imageName = "")
         {
             Font = font;
             DisplayText = displayText;
             TextAlign = Toolbox.TextAlignment.MiddleCenter;
             TextColor = Color.White;
-            ToDraw = true;
+            Visible = true;
             Action = action;
             ActiveColor = Color.Red;
+            UIIType = uiiType;
+            ImageName = imageName;
+            Name = name;
         }
 
         public void UpdateSpecs(Vector2 uiPosition, Vector2 position, Vector2 size)
@@ -69,7 +92,21 @@ namespace ToT_Adventure
 
         public void Draw(SpriteBatch spriteBatch, Vector2 uiiPosition)
         {
-            spriteBatch.DrawString(ToT.Fonts[Font.ToString()], DisplayText, uiiPosition + ToT.PlayerCamera.Position, (Active && Action.Action != Toolbox.UIAction.Nothing) ? ActiveColor : TextColor);
+            switch(UIIType)
+            {
+                case Toolbox.UIItemType.ImageFix:
+                    spriteBatch.Draw(
+                        ToT.Textures[ImageName],
+                        uiiPosition + ToT.PlayerCamera.Position,
+                        null,
+                        Color.White
+                    );
+                    break;
+                case Toolbox.UIItemType.TextFix:
+                    spriteBatch.DrawString(ToT.Fonts[Font.ToString()], DisplayText, uiiPosition + ToT.PlayerCamera.Position, (Active && Action.Action != Toolbox.UIAction.Nothing) ? ActiveColor : TextColor);
+                    break;
+            }
+            
             //spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug01.ToString()], uiiPosition.ToString(), uiiPosition, Active ? ActiveColor : TextColor);
         }
     }

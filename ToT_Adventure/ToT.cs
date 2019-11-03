@@ -140,6 +140,9 @@ namespace ToT_Adventure
                     case Toolbox.UIAction.MainMenu_Exit:
                         Exit();
                         break;
+                    case Toolbox.UIAction.GameMap_Exit:
+                        Exit();
+                        break;
                 }
             }
 

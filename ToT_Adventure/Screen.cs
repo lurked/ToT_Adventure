@@ -34,7 +34,7 @@ namespace ToT_Adventure
         {
             foreach (KeyValuePair<string, UI> ui in UIs)
             {
-                if (ui.Value.ToDraw)
+                if (ui.Value.Visible)
                     ui.Value.Update(gameTime, input);
             }
         }
@@ -47,7 +47,7 @@ namespace ToT_Adventure
         {
             foreach (KeyValuePair<string, UI> ui in UIs)
             {
-                if (ui.Value.ToDraw)
+                if (ui.Value.Visible)
                     ui.Value.Draw(spriteBatch);
             }
         }

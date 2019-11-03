@@ -19,7 +19,7 @@ namespace ToT_Adventure
 
         public const int MAXIMUM_SAMPLES = 100;
 
-        private Queue<float> _sampleBuffer = new Queue<float>();
+        private readonly Queue<float> _sampleBuffer = new Queue<float>();
 
         public bool Update(float deltaTime)
         {
