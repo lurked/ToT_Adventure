@@ -103,7 +103,7 @@ namespace ToT_Adventure
             if (GameMap.Map.ContainsKey(vCurrentPos))
             {
                 GameMap.player.TileIndex = vCurrentPos;
-                ToT.PlayerCamera.SetFocalPoint(vCurrentPos * ToT.Settings.TileSize);
+                ToT.PlayerCamera.SetFocalPoint(vCurrentPos * ToT.Settings.TileSize + ToT.Settings.TileSize / 2);
             }
         }
 

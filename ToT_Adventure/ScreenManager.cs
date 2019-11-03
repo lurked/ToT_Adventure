@@ -168,7 +168,7 @@ namespace ToT_Adventure
                         Screens.Add(Toolbox.ScreenType.GameMap, new GameMapScreen(menuAction.ActionParam));
                     ToT.State = Toolbox.GameState.GameMap;
                     Screens[Toolbox.ScreenType.GameMap].LoadAssets();
-                    ToT.PlayerCamera.SetFocalPoint(((GameMapScreen)Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex * ToT.Settings.TileSize);
+                    ToT.PlayerCamera.SetFocalPoint((((GameMapScreen)Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex * ToT.Settings.TileSize) + ToT.Settings.TileSize / 2);
                     break;
                 case Toolbox.UIAction.MainMenu_Settings:
 
