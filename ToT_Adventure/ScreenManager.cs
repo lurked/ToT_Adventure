@@ -15,8 +15,10 @@ namespace ToT_Adventure
 
         public ScreenManager()
         {
-            Screens = new Dictionary<Toolbox.ScreenType, Screen>();
-            Screens.Add(Toolbox.ScreenType.MainMenu, new MainMenuScreen());
+            Screens = new Dictionary<Toolbox.ScreenType, Screen>
+            {
+                { Toolbox.ScreenType.MainMenu, new MainMenuScreen() }
+            };
         }
 
         public virtual void Initialize()
@@ -44,6 +46,9 @@ namespace ToT_Adventure
                 case Toolbox.GameState.MainMenu:
                     Screens[Toolbox.ScreenType.MainMenu].Update(gameTime, input);
                     break;
+                case Toolbox.GameState.LoadMenu:
+                    Screens[Toolbox.ScreenType.LoadGame].Update(gameTime, input);
+                    break;
                 case Toolbox.GameState.GameMap:
                     Screens[Toolbox.ScreenType.GameMap].Update(gameTime, input);
                     break;
@@ -57,12 +62,15 @@ namespace ToT_Adventure
             }
         }
 
-        public void CheckMouseCollision(Vector2 mousePosition)
+        public void CheckMouseCollision()
         {
             switch (ToT.State)
             {
                 case Toolbox.GameState.MainMenu:
                     CheckCollision(Toolbox.CollisionType.Mouse_Menu, Screens[Toolbox.ScreenType.MainMenu]);
+                    break;
+                case Toolbox.GameState.LoadMenu:
+                    CheckCollision(Toolbox.CollisionType.Mouse_Menu, Screens[Toolbox.ScreenType.LoadGame]);
                     break;
                 case Toolbox.GameState.GameMap:
                     CheckCollision(Toolbox.CollisionType.Mouse_Menu, Screens[Toolbox.ScreenType.GameMap]);
@@ -114,6 +122,11 @@ namespace ToT_Adventure
                             else
                             {
                                 ui.Value.Active = false;
+                                foreach (UIItem uii in ui.Value.uiItems)
+                                {
+                                    if (uii.Active)
+                                        uii.Active = false;
+                                }
                             }
                         }
                     }
@@ -137,19 +150,34 @@ namespace ToT_Adventure
                         Screens.Add(Toolbox.ScreenType.GameMap, new GameMapScreen());
                     ToT.State = Toolbox.GameState.GameMap;
                     Screens[Toolbox.ScreenType.GameMap].LoadAssets();
-                    ToT.PlayerCamera.SetFocalPoint(new Vector2() + ToT.Settings.TileSize / 2);
+                    ToT.PlayerCamera.SetFocalPoint(Vector2.Zero + ToT.Settings.TileSize / 2);
                     break;
                 case Toolbox.UIAction.MainMenu:
                     ToT.State = Toolbox.GameState.MainMenu;
+                    ToT.PlayerCamera.SetFocalPoint(Vector2.Zero + ToT.Settings.Resolution / 2);
                     break;
                 case Toolbox.UIAction.MainMenu_LoadGame:
-
+                    if (!Screens.ContainsKey(Toolbox.ScreenType.LoadGame))
+                        Screens.Add(Toolbox.ScreenType.LoadGame, new LoadGameScreen());
+                    Screens[Toolbox.ScreenType.LoadGame].LoadAssets();
+                    ToT.State = Toolbox.GameState.LoadMenu;
+                    ToT.PlayerCamera.SetFocalPoint(Vector2.Zero + ToT.Settings.Resolution / 2);
+                    break;
+                case Toolbox.UIAction.GameMap_LoadGame:
+                    if (!Screens.ContainsKey(Toolbox.ScreenType.GameMap))
+                        Screens.Add(Toolbox.ScreenType.GameMap, new GameMapScreen(menuAction.ActionParam));
+                    ToT.State = Toolbox.GameState.GameMap;
+                    Screens[Toolbox.ScreenType.GameMap].LoadAssets();
+                    ToT.PlayerCamera.SetFocalPoint(((GameMapScreen)Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex * ToT.Settings.TileSize);
                     break;
                 case Toolbox.UIAction.MainMenu_Settings:
 
                     break;
                 case Toolbox.UIAction.MainMenu_Exit:
                     ToT.UIAction = menuAction;
+                    break;
+                case Toolbox.UIAction.GameMap_SaveGame:
+                    Screens[Toolbox.ScreenType.GameMap].Save();
                     break;
             }
         }
@@ -160,6 +188,9 @@ namespace ToT_Adventure
             {
                 case Toolbox.GameState.MainMenu:
                     Screens[Toolbox.ScreenType.MainMenu].Draw(spriteBatch);
+                    break;
+                case Toolbox.GameState.LoadMenu:
+                    Screens[Toolbox.ScreenType.LoadGame].Draw(spriteBatch);
                     break;
                 case Toolbox.GameState.GameMap:
                     Screens[Toolbox.ScreenType.GameMap].Draw(spriteBatch);

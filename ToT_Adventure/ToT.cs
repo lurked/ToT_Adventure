@@ -121,7 +121,7 @@ namespace ToT_Adventure
         protected override void Update(GameTime gameTime)
         {
             input.Update();
-            screenManager.CheckMouseCollision(input.MousePosition());
+            screenManager.CheckMouseCollision();
             screenManager.Update(gameTime, input);
 
             if (input.ButtonPressed(Buttons.Back) || input.KeyPressed(Keys.Escape))

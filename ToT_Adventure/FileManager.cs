@@ -17,5 +17,20 @@ namespace ToT_Adventure
 
             file.Close();
         }
+
+        public static string ReadFile(string filePath)
+        {
+            string fileContent;
+
+            StreamReader file = new StreamReader(filePath.Contains("Resources\\") ? filePath : "Resources\\" + filePath);
+            fileContent = file.ReadToEnd();
+
+            return fileContent;
+        }
+
+        public static string[] GetSaves()
+        {
+            return Directory.GetFiles("Resources\\saves\\", "*.tots");
+        }
     }
 }

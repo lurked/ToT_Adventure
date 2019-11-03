@@ -13,10 +13,12 @@ namespace ToT_Adventure
     public class GameMap
     {
         public Dictionary<Vector2, Tile> Map;
+        public Player player;
 
         public GameMap()
         {
             Map = GenerateMap("base");
+            player = new Player();
         }
 
         private Dictionary<Vector2, Tile> GenerateMap(string mapType)

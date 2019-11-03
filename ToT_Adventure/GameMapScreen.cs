@@ -4,16 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace ToT_Adventure
 {
     public class GameMapScreen : Screen 
     {
         Vector2 MousePos;
-        GameMap GameMap;
+        public GameMap GameMap { get; set; }
+        string SaveFile;
 
+
+        public GameMapScreen(string saveFile = "")
+        {
+            SaveFile = saveFile;
+        }
         #region MenuUIs
         private void GenerateUI_GameMap()
         {
@@ -26,11 +34,11 @@ namespace ToT_Adventure
             UIs.Add("newGameLogo", mMenuUI);
             UIs["newGameLogo"].ToDraw = true;
         }
-        private void GenerateUI_BackMenu()
+        private void GenerateUI_SaveMenu()
         {
             UI mMenuUI = new UI();
             UIItem mMenuUII;
-            mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "< Back", new UIAction(Toolbox.UIAction.MainMenu), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
+            mMenuUII = new UIItem(Toolbox.UIItemType.TextFix, "Save Game", new UIAction(Toolbox.UIAction.GameMap_SaveGame), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
             mMenuUI.uiItems.Add(mMenuUII);
             Vector2 uiiSize = ToT.Fonts[Toolbox.Font.menuItem02.ToString()].MeasureString(mMenuUII.DisplayText);
             mMenuUI.Position = new Vector2(10, ToT.Settings.Resolution.Y - (uiiSize.Y * mMenuUI.uiItems.Count()) - 5);
@@ -44,9 +52,16 @@ namespace ToT_Adventure
         public override void LoadAssets()                                                                                                                                                                                       
         {
             base.LoadAssets();
-            GenerateUI_GameMap();
-            GenerateUI_BackMenu();
-            GameMap = new GameMap();
+            //GenerateUI_GameMap();
+            GenerateUI_SaveMenu();
+            if (SaveFile != "")
+            {
+                GameMap = LoadGame(SaveFile);
+            }
+            else
+            {
+                GameMap = new GameMap();
+            }
         }
 
         public override void UnloadAssets()
@@ -59,6 +74,52 @@ namespace ToT_Adventure
         {
             base.Update(gameTime, input);
             MousePos = input.MousePosition();
+            UpdatePlayer(gameTime, input);
+        }
+
+        private void UpdatePlayer(object gameTime, InputManager input)
+        {
+            Vector2 vCurrentPos = GameMap.player.TileIndex;
+            if (input.KeyPressed(Keys.Left) || input.KeyPressed(Keys.A))
+            {
+                MovePlayer(new Vector2(vCurrentPos.X - 1, vCurrentPos.Y));
+            }
+            else if (input.KeyPressed(Keys.Right) || input.KeyPressed(Keys.D))
+            {
+                MovePlayer(new Vector2(vCurrentPos.X + 1, vCurrentPos.Y));
+            }
+            else if (input.KeyPressed(Keys.Up) || input.KeyPressed(Keys.W))
+            {
+                MovePlayer(new Vector2(vCurrentPos.X, vCurrentPos.Y - 1));
+            }
+            else if (input.KeyPressed(Keys.Down) || input.KeyPressed(Keys.S))
+            {
+                MovePlayer(new Vector2(vCurrentPos.X, vCurrentPos.Y + 1));
+            }
+        }
+
+        private void MovePlayer(Vector2 vCurrentPos)
+        {
+            if (GameMap.Map.ContainsKey(vCurrentPos))
+            {
+                GameMap.player.TileIndex = vCurrentPos;
+                ToT.PlayerCamera.SetFocalPoint(vCurrentPos * ToT.Settings.TileSize);
+            }
+        }
+
+        public override void Save()
+        {
+            string gameSave = JsonConvert.SerializeObject(GameMap);
+            FileManager.SaveToFile(gameSave, "saves", "save" + DateTime.Now.ToShortDateString().Replace("/", "") + DateTime.Now.ToLongTimeString().Replace(":", "").Replace(" AM", "").Replace(" PM", "") + ".tots");
+        }
+
+        public GameMap LoadGame(string saveName)
+        {
+            GameMap gmLoad;
+
+            gmLoad = JsonConvert.DeserializeObject<GameMap>(FileManager.ReadFile(saveName));
+
+            return gmLoad;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -87,6 +148,18 @@ namespace ToT_Adventure
                     Color.White
                 );
             }
+
+            //Draw the player(s)
+            spriteBatch.Draw(
+                ToT.Textures[GameMap.player.ImageName],
+                    (
+                        GameMap.player.TileIndex * ToT.Settings.TileSize + 
+                        (new Vector2(ToT.Settings.BorderSize, ToT.Settings.BorderSize) * GameMap.player.TileIndex) + 
+                        new Vector2((ToT.Settings.TileSize.X - ToT.Textures[GameMap.player.ImageName].Width) / 2, (ToT.Settings.TileSize.Y - ToT.Textures[GameMap.player.ImageName].Height) / 2)
+                    ),
+                null,
+                Color.White
+            );
         }
     }
 }

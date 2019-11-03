@@ -20,7 +20,9 @@ namespace ToT_Adventure
             GameMap,
             GameLevel,
             GameOver,
-            Quitting
+            Quitting,
+            LoadMenu,
+            Loading
         }
         
         public enum ScreenType
@@ -28,7 +30,8 @@ namespace ToT_Adventure
             MainMenu,
             GameMap,
             GameLevel,
-            GameOver
+            GameOver,
+            LoadGame
         }
         public enum Font
         {
@@ -80,7 +83,9 @@ namespace ToT_Adventure
             MainMenu_LoadGame,
             MainMenu_Settings,
             MainMenu_Exit,
-            MainMenu
+            MainMenu,
+            GameMap_SaveGame,
+            GameMap_LoadGame
         }
 
         public enum CollisionType
@@ -99,6 +104,22 @@ namespace ToT_Adventure
             Castle
         }
 
+        public enum EntityType
+        {
+            Player,
+            Enemy,
+            NPC,
+            Decor,
+            Resource
+        }
+        public enum Stat
+        {
+            HP,
+            Strength,
+            Intel,
+            Dexterity,
+            Speed
+        }
         #endregion
     }
 }

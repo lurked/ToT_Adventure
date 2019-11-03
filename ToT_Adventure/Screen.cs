@@ -38,6 +38,11 @@ namespace ToT_Adventure
                     ui.Value.Update(gameTime, input);
             }
         }
+
+        public virtual void Save()
+        {
+
+        }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             foreach (KeyValuePair<string, UI> ui in UIs)
