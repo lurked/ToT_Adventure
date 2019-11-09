@@ -104,7 +104,7 @@ namespace ToT_Adventure
                 case Toolbox.AnimationType.Spritesheet:
                     if (Active)
                     {
-                        frameCounter += 7;
+                        frameCounter += (int)(1000f / ToT.Settings.FPScap);
                         if (Frames.X > 1)
                         {
                             if (frameCounter >= switchFrame)

@@ -33,7 +33,7 @@ namespace ToT_Adventure
             graphics.PreferredBackBufferWidth = (int)Settings.Resolution.X;
             graphics.PreferredBackBufferHeight = (int)Settings.Resolution.Y;
             graphics.IsFullScreen = false;
-            TargetElapsedTime = TimeSpan.FromSeconds(1.0 / 144.0f);
+            TargetElapsedTime = TimeSpan.FromSeconds(1.0 / Settings.FPScap);
             graphics.SynchronizeWithVerticalRetrace = false;
             IsFixedTimeStep = true;
             this.IsMouseVisible = true;

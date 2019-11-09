@@ -17,6 +17,7 @@ namespace ToT_Adventure
         public Vector2 Resolution { get; set; }
         public Vector2 TileSize { get; set; }
         public float BorderSize { get; set; }
+        public float FPScap { get; set; }
 
         public Settings(string configName = "default")
         {
@@ -24,6 +25,7 @@ namespace ToT_Adventure
             Resolution = new Vector2(1440, 900);
             TileSize = new Vector2(128, 128);
             BorderSize = 1f;
+            FPScap = 144f;
         }
 
         public void Save()
