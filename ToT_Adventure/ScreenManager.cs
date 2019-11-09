@@ -88,7 +88,6 @@ namespace ToT_Adventure
 
         private void CheckCollision(Toolbox.CollisionType checkType, Screen screen)
         {
-            UIAction menuAction = new UIAction();
             switch (checkType)
             {
                 case Toolbox.CollisionType.Mouse_Menu:
@@ -135,10 +134,6 @@ namespace ToT_Adventure
 
                     break;
             }
-            //if (menuAction.Action != Toolbox.UIAction.Nothing)
-            //{
-                
-            //}
         }
 
         public void DoAction(Screen screen, UIAction menuAction, UI ui)

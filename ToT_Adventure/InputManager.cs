@@ -14,7 +14,7 @@ namespace ToT_Adventure
         KeyboardState prevKeyState, keyState;
         GamePadState prevButtonState, buttonState;
         MouseState prevMouseState, mouseState;
-        PlayerIndex playerIndex = PlayerIndex.One;
+        readonly PlayerIndex playerIndex = PlayerIndex.One;
 
         public KeyboardState PrevKeyState
         {

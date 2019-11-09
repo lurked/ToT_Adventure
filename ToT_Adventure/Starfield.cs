@@ -15,12 +15,12 @@ namespace ToT_Adventure
         //Based on Masoud Darvishian's Scrolling Star Field
         //https://www.codeproject.com/Tips/706742/Building-a-Scrolling-Sprite-based-Star-Field-Backg
         //------------------------------------------------------------------------------------------
-        private List<Star> stars = new List<Star>();
+        private readonly List<Star> stars = new List<Star>();
         private int ScreenWidth { get; set; }
         private int ScreenHeight { get; set; }
-        private Random rand = new Random();
+        private readonly Random rand = new Random();
         public Vector2 StarfieldPosition { get; set; }
-        private Color[] colors = {
+        private readonly Color[] colors = {
             Color.White, Color.LightGray, Color.LightBlue
         };
 

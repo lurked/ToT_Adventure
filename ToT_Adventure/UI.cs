@@ -46,7 +46,7 @@ namespace ToT_Adventure
             int fY = 0;
             float currX = 0;
             float currY = 0;
-            Vector2 vUIISize = new Vector2();
+            Vector2 vUIISize;
 
             switch (uIAlignment)
             {

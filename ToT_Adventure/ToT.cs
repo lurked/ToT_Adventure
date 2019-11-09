@@ -11,7 +11,7 @@ namespace ToT_Adventure
 {
     public class ToT : Game
     {
-        GraphicsDeviceManager graphics;
+        readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static Settings Settings;
         public static InputManager input;
@@ -24,7 +24,7 @@ namespace ToT_Adventure
         public static bool DebugMode = false;
         public static Camera PlayerCamera;
 
-        private FrameCounter FrameCounter = new FrameCounter();
+        private readonly FrameCounter FrameCounter = new FrameCounter();
 
         public ToT()
         {
@@ -33,8 +33,10 @@ namespace ToT_Adventure
             graphics.PreferredBackBufferWidth = (int)Settings.Resolution.X;
             graphics.PreferredBackBufferHeight = (int)Settings.Resolution.Y;
             graphics.IsFullScreen = false;
+            TargetElapsedTime = TimeSpan.FromSeconds(1.0 / 144.0f);
+            //TargetElapsedTime = new TimeSpan(1 / 144);
             graphics.SynchronizeWithVerticalRetrace = false;
-            IsFixedTimeStep = false;
+            IsFixedTimeStep = true;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }

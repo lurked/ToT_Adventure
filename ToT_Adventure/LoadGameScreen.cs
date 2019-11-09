@@ -35,7 +35,7 @@ namespace ToT_Adventure
         private void GenerateUI_LoadGames()
         {
             UI mMenuUI = new UI();
-            UIItem mMenuUII = new UIItem();
+            UIItem mMenuUII;
             string[] saves = FileManager.GetSaves();
             Array.Reverse(saves);
             float fLongest = 0f;

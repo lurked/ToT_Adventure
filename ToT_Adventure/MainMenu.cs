@@ -12,7 +12,6 @@ namespace ToT_Adventure
     public class MainMenuScreen : Screen 
     {
         Starfield starfield;
-        Vector2 MousePos;
 
         #region MenuUIs
         private void GenerateUI_MMenuLogo()
@@ -66,7 +65,6 @@ namespace ToT_Adventure
         {
             base.Update(gameTime, input);
             starfield.Update(gameTime);
-            MousePos = input.MousePosition();
         }
 
         public override void Draw(SpriteBatch spriteBatch)

@@ -128,6 +128,12 @@ namespace ToT_Adventure
             Dexterity,
             Speed
         }
+        public enum AnimationType
+        {
+            None,
+            Spritesheet,
+            Sprite
+        }
         #endregion
     }
 }

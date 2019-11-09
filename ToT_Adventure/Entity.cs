@@ -19,6 +19,7 @@ namespace ToT_Adventure
         public bool Visible { get; set; } = true;
         protected Dictionary<Toolbox.Stat, float> Stats;
         protected Dictionary<Toolbox.Stat, float> Bonus;
+        public Animation Anime { get; set; }
 
         public Entity()
         {
@@ -49,7 +50,7 @@ namespace ToT_Adventure
 
         public virtual void Update(GameTime gameTime)
         {
-
+            //Anime.Update();
         }
     }
 }

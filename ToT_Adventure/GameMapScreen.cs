@@ -59,7 +59,7 @@ namespace ToT_Adventure
             };
             mMenuUI.uiItems.Add(mMenuUII);
 
-            Vector2 uiiSize = ToT.Fonts[Toolbox.Font.menuItem02.ToString()].MeasureString(mMenuUII.DisplayText);
+            //Vector2 uiiSize = ToT.Fonts[Toolbox.Font.menuItem02.ToString()].MeasureString(mMenuUII.DisplayText);
             mMenuUI.RefreshUISize(false);
             mMenuUI.Position = new Vector2(ToT.Settings.Resolution.X - mMenuUI.Size.X, 0);
             mMenuUI.RefreshUISize();
@@ -115,6 +115,7 @@ namespace ToT_Adventure
             {
                 MovePlayer(new Vector2(vCurrentPos.X, vCurrentPos.Y + 1));
             }
+            GameMap.player.Anime.Update();
         }
 
         private void MovePlayer(Vector2 vCurrentPos)
@@ -152,19 +153,19 @@ namespace ToT_Adventure
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            Vector2 vCamOffset;
-            switch(ToT.State)
-            {
-                case Toolbox.GameState.GameMap:
-                    vCamOffset = ToT.PlayerCamera.Position;
-                    break;
-                case Toolbox.GameState.GameLevel:
-                    vCamOffset = ToT.PlayerCamera.Position;
-                    break;
-                default:
-                    vCamOffset = new Vector2();
-                    break;
-            }
+            //Vector2 vCamOffset;
+            //switch(ToT.State)
+            //{
+            //    case Toolbox.GameState.GameMap:
+            //        vCamOffset = ToT.PlayerCamera.Position;
+            //        break;
+            //    case Toolbox.GameState.GameLevel:
+            //        vCamOffset = ToT.PlayerCamera.Position;
+            //        break;
+            //    default:
+            //        vCamOffset = new Vector2();
+            //        break;
+            //}
             //Draw each tile to its corresponding position according to the tile size and border size.
             foreach (KeyValuePair<Vector2, Tile> tile in GameMap.Map)
             {
@@ -177,15 +178,22 @@ namespace ToT_Adventure
             }
 
             //Draw the player(s)
+            Rectangle pSourceRect = GameMap.player.Anime.SourceRect;
+            Vector2 origin = new Vector2(pSourceRect.Width / 2, pSourceRect.Height / 2);
             spriteBatch.Draw(
-                ToT.Textures[GameMap.player.ImageName],
-                    (
-                        GameMap.player.TileIndex * ToT.Settings.TileSize + 
-                        (new Vector2(ToT.Settings.BorderSize, ToT.Settings.BorderSize) * GameMap.player.TileIndex) + 
-                        new Vector2((ToT.Settings.TileSize.X - ToT.Textures[GameMap.player.ImageName].Width) / 2, (ToT.Settings.TileSize.Y - ToT.Textures[GameMap.player.ImageName].Height) / 2)
-                    ),
-                null,
-                Color.White
+                ToT.Textures[GameMap.player.Anime.ImageName],
+                (
+                    GameMap.player.TileIndex * ToT.Settings.TileSize + 
+                    (new Vector2(ToT.Settings.BorderSize, ToT.Settings.BorderSize) * GameMap.player.TileIndex) + 
+                    (ToT.Settings.TileSize / 2)
+                ),
+                pSourceRect,
+                Color.White,
+                0f,
+                origin,
+                1f,
+                SpriteEffects.None,
+                0.0f
             );
         }
     }
