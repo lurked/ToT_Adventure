@@ -102,18 +102,22 @@ namespace ToT_Adventure
             if (input.KeyPressed(Keys.Left) || input.KeyPressed(Keys.A))
             {
                 MovePlayer(new Vector2(vCurrentPos.X - 1, vCurrentPos.Y));
+                GameMap.player.Anime.FY = 1;
             }
             else if (input.KeyPressed(Keys.Right) || input.KeyPressed(Keys.D))
             {
                 MovePlayer(new Vector2(vCurrentPos.X + 1, vCurrentPos.Y));
+                GameMap.player.Anime.FY = 2;
             }
             else if (input.KeyPressed(Keys.Up) || input.KeyPressed(Keys.W))
             {
                 MovePlayer(new Vector2(vCurrentPos.X, vCurrentPos.Y - 1));
+                GameMap.player.Anime.FY = 3;
             }
             else if (input.KeyPressed(Keys.Down) || input.KeyPressed(Keys.S))
             {
                 MovePlayer(new Vector2(vCurrentPos.X, vCurrentPos.Y + 1));
+                GameMap.player.Anime.FY = 0;
             }
             GameMap.player.Anime.Update();
         }
