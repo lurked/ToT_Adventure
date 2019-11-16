@@ -92,42 +92,51 @@ namespace ToT_Adventure
 
         public override void Update(GameTime gameTime, InputManager input)
         {
-            base.Update(gameTime, input);
             UpdatePlayer(input);
+            base.Update(gameTime, input);
         }
 
         private void UpdatePlayer(InputManager input)
         {
-            Vector2 vCurrentPos = GameMap.player.TileIndex;
-            if (input.KeyPressed(Keys.Left) || input.KeyPressed(Keys.A))
-            {
-                MovePlayer(new Vector2(vCurrentPos.X - 1, vCurrentPos.Y));
-                GameMap.player.Anime.FY = 1;
-            }
-            else if (input.KeyPressed(Keys.Right) || input.KeyPressed(Keys.D))
-            {
-                MovePlayer(new Vector2(vCurrentPos.X + 1, vCurrentPos.Y));
-                GameMap.player.Anime.FY = 2;
-            }
-            else if (input.KeyPressed(Keys.Up) || input.KeyPressed(Keys.W))
-            {
-                MovePlayer(new Vector2(vCurrentPos.X, vCurrentPos.Y - 1));
-                GameMap.player.Anime.FY = 3;
-            }
-            else if (input.KeyPressed(Keys.Down) || input.KeyPressed(Keys.S))
-            {
-                MovePlayer(new Vector2(vCurrentPos.X, vCurrentPos.Y + 1));
-                GameMap.player.Anime.FY = 0;
-            }
+            UpdatePlayerMovement(input);
+            GameMap.player.UpdateMove();
+
             GameMap.player.Anime.Update();
         }
 
-        private void MovePlayer(Vector2 vCurrentPos)
+        private void UpdatePlayerMovement(InputManager input)
         {
-            if (GameMap.Map.ContainsKey(vCurrentPos))
+            if (GameMap.player.State != Toolbox.EntityState.Moving)
             {
-                GameMap.player.TileIndex = vCurrentPos;
-                ToT.PlayerCamera.SetFocalPoint(vCurrentPos * ToT.Settings.TileSize + ToT.Settings.TileSize / 2);
+                Vector2 vCurrentPos = GameMap.player.TileIndex;
+                if (input.KeyPressed(Keys.Left) || input.KeyPressed(Keys.A))
+                {
+                    GameMap.player.Anime.FY = 1;
+                    MovePlayer(Toolbox.Orientation.West, new Vector2(vCurrentPos.X - 1, vCurrentPos.Y));
+                }
+                else if (input.KeyPressed(Keys.Right) || input.KeyPressed(Keys.D))
+                {
+                    GameMap.player.Anime.FY = 2;
+                    MovePlayer(Toolbox.Orientation.East, new Vector2(vCurrentPos.X + 1, vCurrentPos.Y));
+                }
+                else if (input.KeyPressed(Keys.Up) || input.KeyPressed(Keys.W))
+                {
+                    GameMap.player.Anime.FY = 3;
+                    MovePlayer(Toolbox.Orientation.North, new Vector2(vCurrentPos.X, vCurrentPos.Y - 1));
+                }
+                else if (input.KeyPressed(Keys.Down) || input.KeyPressed(Keys.S))
+                {
+                    GameMap.player.Anime.FY = 0;
+                    MovePlayer(Toolbox.Orientation.South, new Vector2(vCurrentPos.X, vCurrentPos.Y + 1));
+                }
+            }
+        }
+
+        private void MovePlayer(Toolbox.Orientation orientation, Vector2 vDestPos)
+        {
+            if (GameMap.Map.ContainsKey(vDestPos))
+            {
+                GameMap.player.MoveTo(orientation, vDestPos);
             }
         }
 
@@ -189,7 +198,8 @@ namespace ToT_Adventure
                 (
                     GameMap.player.TileIndex * ToT.Settings.TileSize + 
                     (new Vector2(ToT.Settings.BorderSize, ToT.Settings.BorderSize) * GameMap.player.TileIndex) + 
-                    (ToT.Settings.TileSize / 2)
+                    (ToT.Settings.TileSize / 2) + 
+                    (GameMap.player.DestTileIndex != GameMap.player.TileIndex ? GameMap.player.GetMoveVector() : Vector2.Zero)
                 ),
                 pSourceRect,
                 Color.White,

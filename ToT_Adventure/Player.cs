@@ -15,6 +15,9 @@ namespace ToT_Adventure
             Kind = Toolbox.EntityType.Player;
             if (TileIndex == null)
                 TileIndex = Vector2.Zero;
+            if (!Stats.ContainsKey(Toolbox.Stat.Speed))
+                Stats.Add(Toolbox.Stat.Speed, 1f);
+            Orientation = Toolbox.Orientation.South;
             Anime = new Animation()
             {
                 ImageName = "character_32x48",
@@ -23,6 +26,52 @@ namespace ToT_Adventure
                 Active = true
             };
             Anime.Init();
+        }
+
+        internal void MoveTo(Toolbox.Orientation orientation, Vector2 vDestPos)
+        {
+            DestTileIndex = vDestPos;
+            State = Toolbox.EntityState.Moving;
+            Orientation = orientation;
+        }
+
+        internal void UpdateMove()
+        {
+            if (State == Toolbox.EntityState.Moving)
+            {
+                Anime.Active = true;
+                if (DistanceTraveled < 1f)
+                {
+                    DistanceTraveled += (Stats[Toolbox.Stat.Speed] * (1/ToT.Settings.FPScap));
+                }
+                if (DistanceTraveled >= 1f)
+                {
+                    TileIndex = DestTileIndex;
+                    DistanceTraveled = 0f;
+                    State = Toolbox.EntityState.Idle;
+                }
+            }
+            else
+            {
+                Anime.Active = false;
+            }
+        }
+
+        internal Vector2 GetMoveVector()
+        {
+            switch(Orientation)
+            {
+                case Toolbox.Orientation.East:
+                    return new Vector2(ToT.Settings.TileSize.X * DistanceTraveled, 0f);
+                case Toolbox.Orientation.West:
+                    return new Vector2(-(ToT.Settings.TileSize.X * DistanceTraveled), 0f);
+                case Toolbox.Orientation.South:
+                    return new Vector2(0f, ToT.Settings.TileSize.Y * DistanceTraveled);
+                case Toolbox.Orientation.North:
+                    return new Vector2(0f, -(ToT.Settings.TileSize.Y * DistanceTraveled));
+                default:
+                    return Vector2.Zero;
+            }
         }
     }
 }

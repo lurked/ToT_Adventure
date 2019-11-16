@@ -11,10 +11,14 @@ namespace ToT_Adventure
     public class Entity
     {
         public Toolbox.EntityType Kind { get; set; }
+        public Toolbox.EntityState State { get; set; }
         public string Name { get; set; }
         public string Tooltip { get; set; }
         public string ImageName { get; set; }
         public Vector2 TileIndex { get; set; }
+        public Vector2 DestTileIndex { get; set; }
+        public float DistanceTraveled { get; set; }
+        public Toolbox.Orientation Orientation { get; set; }
         public Vector2 Position { get; set; }
         public bool Visible { get; set; } = true;
         protected Dictionary<Toolbox.Stat, float> Stats;
@@ -23,15 +27,14 @@ namespace ToT_Adventure
 
         public Entity()
         {
-            Kind = Toolbox.EntityType.Decor;
-            Position = Vector2.Zero;
-            TileIndex = Vector2.Zero;
+            State = Toolbox.EntityState.Idle;
             Stats = new Dictionary<Toolbox.Stat, float>
             {
                 { Toolbox.Stat.HP, 1f }
             };
             Tooltip = "Basic entity, so basic all it wants to do is drink pumpkin spice lattes and play candy crush.";
             ImageName = "colorwheel32";
+            DestTileIndex = Vector2.Zero;
         }
 
         public float GetStat(Toolbox.Stat stat, bool withBonuses = true)

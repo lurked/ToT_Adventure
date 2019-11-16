@@ -120,6 +120,13 @@ namespace ToT_Adventure
             Decor,
             Resource
         }
+        public enum EntityState
+        {
+            Idle,
+            Moving,
+            Fighting,
+            Dancing
+        }
         public enum Stat
         {
             HP,
@@ -133,6 +140,13 @@ namespace ToT_Adventure
             None,
             Spritesheet,
             Sprite
+        }
+        public enum Orientation
+        {
+            South,
+            West,
+            East,
+            North
         }
         #endregion
     }
