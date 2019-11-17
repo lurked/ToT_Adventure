@@ -93,6 +93,7 @@ namespace ToT_Adventure
             GameMap_LoadGame,
             GameMap_MainMenu,
             GameMap_Exit,
+            GameMap_Adventure,
             Toggle_UII
         }
 
@@ -109,7 +110,12 @@ namespace ToT_Adventure
             Plains,
             Forest,
             Dungeon,
-            Castle
+            Castle,
+            Level_Dirt,
+            Level_Plains,
+            Level_Forest,
+            Level_Dungeon,
+            Level_Castle
         }
 
         public enum EntityType

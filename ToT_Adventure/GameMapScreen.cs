@@ -23,17 +23,7 @@ namespace ToT_Adventure
             SaveFile = saveFile;
         }
         #region MenuUIs
-        //private void GenerateUI_GameMap()
-        //{
-        //    UI mMenuUI = new UI();
-        //    UIItem mMenuUII = new UIItem("newgame", Toolbox.UIItemType.TextFix, "New Game", new UIAction(), Toolbox.Font.logo01, Toolbox.TextAlignment.TopLeft);
-        //    mMenuUI.uiItems.Add(mMenuUII);
-        //    mMenuUI.Position = new Vector2((ToT.Settings.Resolution.X - ToT.Fonts[Toolbox.Font.logo01.ToString()].MeasureString(mMenuUII.DisplayText).X) / 2, ToT.Settings.Resolution.Y / 20);
-        //    mMenuUI.RefreshUISize();
 
-        //    UIs.Add("newGameLogo", mMenuUI);
-        //    UIs["newGameLogo"].Visible = true;
-        //}
         private void GenerateUI_SaveMenu()
         {
             UI mMenuUI = new UI();
@@ -64,15 +54,30 @@ namespace ToT_Adventure
             mMenuUI.Position = new Vector2(ToT.Settings.Resolution.X - mMenuUI.Size.X, 0);
             mMenuUI.RefreshUISize();
 
-            UIs.Add("BackMenu", mMenuUI);
-            UIs["BackMenu"].Visible = true;
+            UIs.Add("GameMenu", mMenuUI);
+            UIs["GameMenu"].Visible = true;
+        }
+
+        private void GenerateUI_Adventure()
+        {
+            UI mMenuUI = new UI();
+            UIItem mMenuUII;
+            mMenuUII = new UIItem("adventure", Toolbox.UIItemType.TextFix, "Adventure!", new UIAction(Toolbox.UIAction.GameMap_Adventure, ""), Toolbox.Font.menuItem02, Toolbox.TextAlignment.MiddleCenter);
+            mMenuUI.uiItems.Add(mMenuUII);
+
+            mMenuUI.RefreshUISize(false);
+            mMenuUI.Position = new Vector2(5, ToT.Settings.Resolution.Y - mMenuUI.Size.Y);
+            mMenuUI.RefreshUISize();
+
+            UIs.Add("AdventureMenu", mMenuUI);
+            UIs["AdventureMenu"].Visible = true;
         }
         #endregion
 
         public override void LoadAssets()                                                                                                                                                                                       
         {
             base.LoadAssets();
-            //GenerateUI_GameMap();
+            GenerateUI_Adventure();
             GenerateUI_SaveMenu();
             if (SaveFile != "")
             {

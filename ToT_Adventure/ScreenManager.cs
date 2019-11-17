@@ -201,6 +201,13 @@ namespace ToT_Adventure
                         ui.Position = new Vector2(ui.Position.X, 0f);
                     ui.RefreshUISize();
                     break;
+                case Toolbox.UIAction.GameMap_Adventure:
+                    if (!Screens.ContainsKey(Toolbox.ScreenType.GameLevel))
+                        Screens.Add(Toolbox.ScreenType.GameLevel, new GameLevelScreen());
+                    ToT.State = Toolbox.GameState.GameLevel;
+                    Screens[Toolbox.ScreenType.GameLevel].LoadAssets();
+                    ToT.PlayerCamera.SetFocalPoint(Vector2.Zero + ToT.Settings.LevelTileSize / 2);
+                    break;
             }
         }
 
@@ -218,7 +225,7 @@ namespace ToT_Adventure
                     Screens[Toolbox.ScreenType.GameMap].Draw(spriteBatch);
                     break;
                 case Toolbox.GameState.GameLevel:
-                    Screens[Toolbox.ScreenType.MainMenu].Draw(spriteBatch);
+                    Screens[Toolbox.ScreenType.GameLevel].Draw(spriteBatch);
                     break;
                 case Toolbox.GameState.GameOver:
                     Screens[Toolbox.ScreenType.GameOver].Draw(spriteBatch);

@@ -16,6 +16,7 @@ namespace ToT_Adventure
         public string ConfigName { get; set; }
         public Vector2 Resolution { get; set; }
         public Vector2 TileSize { get; set; }
+        public Vector2 LevelTileSize { get; set; }
         public float BorderSize { get; set; }
         public float FPScap { get; set; }
 
@@ -24,6 +25,7 @@ namespace ToT_Adventure
             ConfigName = configName;
             Resolution = new Vector2(1440, 900);
             TileSize = new Vector2(128, 128);
+            LevelTileSize = new Vector2(32, 32);
             BorderSize = 1f;
             FPScap = 144f;
         }

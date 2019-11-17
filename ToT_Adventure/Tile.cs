@@ -19,12 +19,25 @@ namespace ToT_Adventure
         }
         public Tile(string imageName, Toolbox.TileType tileType = Toolbox.TileType.Plains)
         {
-            if (imageName == "")
-                ImageName = "cotton_green_" + ToT.Settings.TileSize.X.ToString();
-            else
-                ImageName = imageName;
-
             TileType = tileType;
+
+            if (TileType == Toolbox.TileType.Castle ||
+                TileType == Toolbox.TileType.Dirt ||
+                TileType == Toolbox.TileType.Dungeon ||
+                TileType == Toolbox.TileType.Forest ||
+                TileType == Toolbox.TileType.Home ||
+                TileType == Toolbox.TileType.Plains
+                )
+            {
+                if (imageName == "")
+                    ImageName = "cotton_green_" + ToT.Settings.TileSize.X.ToString();
+                else
+                    ImageName = imageName;
+            }
+            else 
+            {
+                ImageName = imageName;
+            }
         }
     }
 }
