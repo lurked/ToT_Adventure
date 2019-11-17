@@ -35,6 +35,7 @@ namespace ToT_Adventure
             string imgPrename;
             imgPrefix = imgPrefix.Replace("{tilesize}", ToT.Settings.LevelTileSize.X.ToString());
             imgPrefix = imgPrefix.Replace("{terrain}", tileType.ToString().ToLower().Replace("level_", ""));
+            lvl.Size = size;
             for (int i = 0; i < size.X; i++)
             {
                 if (i == 0)

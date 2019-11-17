@@ -113,6 +113,8 @@ namespace ToT_Adventure
         {
             if (GameMap.player.State != Toolbox.EntityState.Moving)
             {
+                if (!UIs["AdventureMenu"].Visible)
+                    UIs["AdventureMenu"].Visible = true;
                 Vector2 vCurrentPos = GameMap.player.TileIndex;
                 if (input.KeyPressed(Keys.Left) || input.KeyPressed(Keys.A))
                 {
@@ -135,6 +137,11 @@ namespace ToT_Adventure
                     MovePlayer(Toolbox.Orientation.South, new Vector2(vCurrentPos.X, vCurrentPos.Y + 1));
                 }
             }
+            else
+            {
+                if (UIs["AdventureMenu"].Visible)
+                    UIs["AdventureMenu"].Visible = false;
+            }
         }
 
         private void MovePlayer(Toolbox.Orientation orientation, Vector2 vDestPos)
@@ -152,11 +159,11 @@ namespace ToT_Adventure
                 gameSave, 
                 "saves", 
                 "save" + DateTime.Now.Year.ToString() + 
-                         DateTime.Now.Month.ToString() + 
-                         DateTime.Now.Day.ToString() + 
-                         DateTime.Now.Hour.ToString() + 
-                         DateTime.Now.Minute.ToString() + 
-                         DateTime.Now.Second.ToString() + ".tots");
+                         DateTime.Now.Month.ToString("00") + 
+                         DateTime.Now.Day.ToString("00") + 
+                         DateTime.Now.Hour.ToString("00") + 
+                         DateTime.Now.Minute.ToString("00") + 
+                         DateTime.Now.Second.ToString("00") + ".tots");
         }
 
         public GameMap LoadGame(string saveName)
