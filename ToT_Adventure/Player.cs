@@ -16,7 +16,7 @@ namespace ToT_Adventure
             if (TileIndex == null)
                 TileIndex = Vector2.Zero;
             if (!Stats.ContainsKey(Toolbox.Stat.Speed))
-                Stats.Add(Toolbox.Stat.Speed, 1f);
+                Stats.Add(Toolbox.Stat.Speed, 2f);
             Orientation = Toolbox.Orientation.South;
             Anime = new Animation()
             {
@@ -50,6 +50,7 @@ namespace ToT_Adventure
                     DistanceTraveled = 0f;
                     State = Toolbox.EntityState.Idle;
                 }
+                ToT.PlayerCamera.SetFocalPoint(TileIndex * ToT.Settings.TileSize + ToT.Settings.TileSize / 2 + GetMoveVector());
             }
             else
             {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.Xna.Framework;
+
 namespace ToT_Adventure
 {
 
@@ -11,6 +13,8 @@ namespace ToT_Adventure
     {
         public string ImageName { get; set; }
         public Toolbox.TileType TileType { get; set; }
+
+        public Level Level { get; set; }
 
         public Tile()
         {
@@ -38,6 +42,11 @@ namespace ToT_Adventure
             {
                 ImageName = imageName;
             }
+        }
+        public void InitLevel()
+        {
+            if (Level == null)
+                Level = LevelGenerator.Generate("basic", new Vector2(Toolbox.StaticRandom.Instance.Next(9, 33), Toolbox.StaticRandom.Instance.Next(9, 33)), TileType);
         }
     }
 }

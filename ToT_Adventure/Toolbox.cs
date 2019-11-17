@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ToT_Adventure
@@ -94,6 +95,7 @@ namespace ToT_Adventure
             GameMap_MainMenu,
             GameMap_Exit,
             GameMap_Adventure,
+            GameLevel_GameMap,
             Toggle_UII
         }
 
@@ -153,6 +155,23 @@ namespace ToT_Adventure
             West,
             East,
             North
+        }
+        #endregion
+        #region Tools
+        public static class StaticRandom
+        {
+            private static int seed;
+
+            private static readonly ThreadLocal<Random> threadLocal = new ThreadLocal<Random>
+                (() => new Random(Interlocked.Increment(ref seed)));
+
+            static StaticRandom()
+            {
+                seed = Environment.TickCount;
+            }
+
+            public static Random Instance { get { return threadLocal.Value; } }
+
         }
         #endregion
     }

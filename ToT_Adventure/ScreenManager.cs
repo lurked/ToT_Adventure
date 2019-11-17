@@ -74,11 +74,17 @@ namespace ToT_Adventure
                     break;
                 case Toolbox.GameState.GameMap:
                     CheckCollision(Toolbox.CollisionType.Mouse_Menu, Screens[Toolbox.ScreenType.GameMap]);
-                    CheckCollision(Toolbox.CollisionType.Mouse_Entity, Screens[Toolbox.ScreenType.GameMap]);
+                    if (Screens.ContainsKey(Toolbox.ScreenType.GameMap))
+                    {
+                        CheckCollision(Toolbox.CollisionType.Mouse_Entity, Screens[Toolbox.ScreenType.GameMap]);
+                    }
                     break;
                 case Toolbox.GameState.GameLevel:
                     CheckCollision(Toolbox.CollisionType.Mouse_Menu, Screens[Toolbox.ScreenType.GameLevel]);
-                    CheckCollision(Toolbox.CollisionType.Mouse_Entity, Screens[Toolbox.ScreenType.GameLevel]);
+                    if (Screens.ContainsKey(Toolbox.ScreenType.GameLevel))
+                    {
+                        CheckCollision(Toolbox.CollisionType.Mouse_Entity, Screens[Toolbox.ScreenType.GameLevel]);
+                    }
                     break;
                 case Toolbox.GameState.GameOver:
                     CheckCollision(Toolbox.CollisionType.Mouse_Menu, Screens[Toolbox.ScreenType.GameOver]);
@@ -177,6 +183,7 @@ namespace ToT_Adventure
                     break;
                 case Toolbox.UIAction.GameMap_MainMenu:
                     ((GameMapScreen)screen).Save();
+                    Screens.Remove(Toolbox.ScreenType.GameMap);
                     ToT.State = Toolbox.GameState.MainMenu;
                     ToT.PlayerCamera.SetFocalPoint(Vector2.Zero + ToT.Settings.Resolution / 2);
                     break;
@@ -207,6 +214,11 @@ namespace ToT_Adventure
                     ToT.State = Toolbox.GameState.GameLevel;
                     Screens[Toolbox.ScreenType.GameLevel].LoadAssets();
                     ToT.PlayerCamera.SetFocalPoint(Vector2.Zero + ToT.Settings.LevelTileSize / 2);
+                    break;
+                case Toolbox.UIAction.GameLevel_GameMap:
+                    Screens.Remove(Toolbox.ScreenType.GameLevel);
+                    ToT.State = Toolbox.GameState.GameMap;
+                    ToT.PlayerCamera.SetFocalPoint((((GameMapScreen)Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex * ToT.Settings.TileSize) + ToT.Settings.TileSize / 2);
                     break;
             }
         }
