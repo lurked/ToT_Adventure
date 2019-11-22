@@ -57,6 +57,18 @@ namespace ToT_Adventure
                 Anime.Active = false;
             }
         }
+        internal void UpdateLevelMove()
+        {
+            if (State == Toolbox.EntityState.Moving)
+            {
+                Anime.Active = true;
+                ToT.PlayerCamera.SetFocalPoint(LevelPosition);
+            }
+            else
+            {
+                Anime.Active = false;
+            }
+        }
 
         internal Vector2 GetMoveVector()
         {
@@ -73,6 +85,13 @@ namespace ToT_Adventure
                 default:
                     return Vector2.Zero;
             }
+        }
+
+        internal void LevelMoveTo(Toolbox.Orientation orientation, Vector2 vDestPos)
+        {
+            State = Toolbox.EntityState.Moving;
+            LevelPosition = vDestPos;
+            Orientation = orientation;
         }
     }
 }
