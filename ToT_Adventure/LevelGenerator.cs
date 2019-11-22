@@ -30,7 +30,7 @@ namespace ToT_Adventure
         {
             Level lvl = new Level();
             Tile tTile;
-            string imgPrefix = "tile_{terrain}_{spriteposY}{spriteposX}_{tilesize}";
+            string imgPrefix = "terrain{tilesize}\\tile_{terrain}_{spriteposY}{spriteposX}";
             string imgName;
             string imgPrename;
             imgPrefix = imgPrefix.Replace("{tilesize}", ToT.Settings.LevelTileSize.X.ToString());

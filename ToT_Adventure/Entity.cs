@@ -20,6 +20,7 @@ namespace ToT_Adventure
         public float DistanceTraveled { get; set; }
         public Toolbox.Orientation Orientation { get; set; }
         public Vector2 Position { get; set; }
+        public Vector2 LevelPosition { get; set; }
         public bool Visible { get; set; } = true;
         protected Dictionary<Toolbox.Stat, float> Stats;
         protected Dictionary<Toolbox.Stat, float> Bonus;
@@ -35,6 +36,7 @@ namespace ToT_Adventure
             Tooltip = "Basic entity, so basic all it wants to do is drink pumpkin spice lattes and play candy crush.";
             ImageName = "colorwheel32";
             DestTileIndex = Vector2.Zero;
+            LevelPosition = Vector2.Zero;
         }
 
         public float GetStat(Toolbox.Stat stat, bool withBonuses = true)

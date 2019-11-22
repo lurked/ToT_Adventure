@@ -87,67 +87,247 @@
     <EmbeddedResource Include="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\sprites\tile_dirt_bottomleft_32.png">
+    <Content Include="Resources\sprites\terrain32\bush_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_dirt_bottommiddle_32.png">
+    <Content Include="Resources\sprites\terrain32\cactus_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_dirt_bottomright_32.png">
+    <Content Include="Resources\sprites\terrain32\mushroom_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_dirt_middleleft_32.png">
+    <Content Include="Resources\sprites\terrain32\mushroom_02.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_dirt_middlemiddle_32.png">
+    <Content Include="Resources\sprites\terrain32\rock_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_dirt_middleright_32.png">
+    <Content Include="Resources\sprites\terrain32\rock_02.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_dirt_topleft_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_dirt_bottomleft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_dirt_topmiddle_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_dirt_bottommiddle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_dirt_topright_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_dirt_bottomright.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_plains_bottomleft_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_dirt_middleleft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_plains_bottommiddle_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_dirt_middlemiddle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_plains_bottomright_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_dirt_middleright.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_plains_middleleft_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_dirt_topleft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_plains_middlemiddle_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_dirt_topmiddle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_plains_middleright_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_dirt_topright.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_plains_topleft_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_plains_bottomleft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_plains_topmiddle_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_plains_bottommiddle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tile_plains_topright_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_plains_bottomright.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tree_01_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_plains_middleleft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tree_02_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_plains_middlemiddle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\tree_03_32.png">
+    <Content Include="Resources\sprites\terrain32\tile_plains_middleright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain32\tile_plains_topleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain32\tile_plains_topmiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain32\tile_plains_topright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain32\tree_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain32\tree_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain32\tree_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\bush_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\cactus_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\castle_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\crystal_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\mushroom_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\mushroom_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\mushroom_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\npc_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\npc_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\npc_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\npc_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\npc_05.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\rock_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_dirt_bottomleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_dirt_bottommiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_dirt_bottomright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_dirt_middleleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_dirt_middlemiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_dirt_middleright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_dirt_topleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_dirt_topmiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_dirt_topright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_montain_bottomleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_montain_bottommiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_montain_bottomright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_montain_middleleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_montain_middlemiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_montain_middleright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_montain_topleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_montain_topmiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_montain_topright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_plains_bottomleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_plains_bottommiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_plains_bottomright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_plains_middleleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_plains_middlemiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_plains_middleright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_plains_topleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_plains_topmiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_plains_topright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_sand_bottomleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_sand_bottommiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_sand_bottomright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_sand_middleleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_sand_middlemiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_sand_middleright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_sand_topleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_sand_topmiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_sand_topright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tower_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tree_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tree_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tree_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tree_04.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <MonoGameContentReference Include="Content\Content.mgcb" />
@@ -235,12 +415,6 @@
     <Content Include="Resources\saves\ReadMe.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\sprites\bush_01_32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\sprites\cactus_01_32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\sprites\character_32x48.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -281,18 +455,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\main_01_72.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\sprites\mushroom_01_32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\sprites\mushroom_02_32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\sprites\rock_01_32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\sprites\rock_02_32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\star03.png">

@@ -86,14 +86,30 @@ namespace ToT_Adventure
 
         private void InitializeTextures()
         {
-            string[] files = Directory.GetFiles("Resources\\sprites", "*.png");
+            string[] files = Directory.GetFiles(ToT.Settings.TexturePath, "*.png");
             foreach (string tS in files)
             {
                 FileStream filestream = new FileStream(tS, FileMode.Open);
                 Texture2D tTexture = Texture2D.FromStream(GraphicsDevice, filestream);
 
-                Textures.Add(Path.GetFileName(tS).Replace(".png", ""), tTexture);
+                Textures.Add(tS.Replace(ToT.Settings.TexturePath + "\\", "").Replace(".png", ""), tTexture);
                 filestream.Close();
+            }
+            string[] directories = Directory.GetDirectories(ToT.Settings.TexturePath);
+            foreach (string tD in directories)
+            {
+                if (tD.Contains(ToT.Settings.LevelTileSize.X.ToString()))
+                {
+                    files = Directory.GetFiles(tD, "*.png");
+                    foreach (string tS in files)
+                    {
+                        FileStream filestream = new FileStream(tS, FileMode.Open);
+                        Texture2D tTexture = Texture2D.FromStream(GraphicsDevice, filestream);
+
+                        Textures.Add(tS.Replace(ToT.Settings.TexturePath + "\\", "").Replace(".png", ""), tTexture);
+                        filestream.Close();
+                    }
+                }
             }
         }
 

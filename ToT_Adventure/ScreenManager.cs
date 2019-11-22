@@ -227,7 +227,11 @@ namespace ToT_Adventure
                 case Toolbox.UIAction.GameLevel_GameMap:
                     Screens.Remove(Toolbox.ScreenType.GameLevel);
                     ToT.State = Toolbox.GameState.GameMap;
-                    ToT.PlayerCamera.SetFocalPoint((((GameMapScreen)Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex * ToT.Settings.TileSize) + ToT.Settings.TileSize / 2);
+                    ToT.PlayerCamera.SetFocalPoint
+                        (
+                            (((GameMapScreen)Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex * ToT.Settings.TileSize) + 
+                            ToT.Settings.TileSize / 2
+                        );
                     break;
             }
         }

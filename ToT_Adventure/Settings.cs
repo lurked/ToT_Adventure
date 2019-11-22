@@ -19,15 +19,17 @@ namespace ToT_Adventure
         public Vector2 LevelTileSize { get; set; }
         public float BorderSize { get; set; }
         public float FPScap { get; set; }
+        public string TexturePath { get; set; }
 
         public Settings(string configName = "default")
         {
             ConfigName = configName;
             Resolution = new Vector2(1440, 900);
             TileSize = new Vector2(128, 128);
-            LevelTileSize = new Vector2(32, 32);
+            LevelTileSize = new Vector2(64, 64);
             BorderSize = 1f;
             FPScap = 144f;
+            TexturePath = "Resources\\sprites";
         }
 
         public void Save()

@@ -46,7 +46,7 @@ namespace ToT_Adventure
         public void InitLevel()
         {
             if (Level == null)
-                Level = LevelGenerator.Generate("basic", new Vector2(Toolbox.StaticRandom.Instance.Next(9, 33), Toolbox.StaticRandom.Instance.Next(9, 33)), TileType);
+                Level = LevelGenerator.Generate("basic", new Vector2(Toolbox.StaticRandom.Instance.Next(32, 129), Toolbox.StaticRandom.Instance.Next(32, 129)), TileType);
         }
     }
 }
