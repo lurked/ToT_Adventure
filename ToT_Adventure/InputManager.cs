@@ -52,6 +52,11 @@ namespace ToT_Adventure
             return new Rectangle((int)MousePosition().X - 1, (int)MousePosition().Y - 1, 2, 2);
         }
 
+        internal Rectangle MouseRectReal(Vector2 position)
+        {
+            return new Rectangle((int)MousePosition().X - 1 + (int)position.X, (int)MousePosition().Y - 1 + (int)position.Y, 2, 2);
+        }
+
         public bool MouseDown()
         {
             return (mouseState.LeftButton == ButtonState.Pressed);

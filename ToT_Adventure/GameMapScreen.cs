@@ -116,22 +116,22 @@ namespace ToT_Adventure
                 if (!UIs["AdventureMenu"].Visible)
                     UIs["AdventureMenu"].Visible = true;
                 Vector2 vCurrentPos = GameMap.player.TileIndex;
-                if (input.KeyPressed(Keys.Left) || input.KeyPressed(Keys.A))
+                if (input.KeyPressed(Keys.Left) || input.KeyPressed(ToT.Settings.Controls[Toolbox.Controls.MoveLeft]))
                 {
                     GameMap.player.Anime.FY = 1;
                     MovePlayer(Toolbox.Orientation.West, new Vector2(vCurrentPos.X - 1, vCurrentPos.Y));
                 }
-                else if (input.KeyPressed(Keys.Right) || input.KeyPressed(Keys.D))
+                else if (input.KeyPressed(Keys.Right) || input.KeyPressed(ToT.Settings.Controls[Toolbox.Controls.MoveRight]))
                 {
                     GameMap.player.Anime.FY = 2;
                     MovePlayer(Toolbox.Orientation.East, new Vector2(vCurrentPos.X + 1, vCurrentPos.Y));
                 }
-                else if (input.KeyPressed(Keys.Up) || input.KeyPressed(Keys.W))
+                else if (input.KeyPressed(Keys.Up) || input.KeyPressed(ToT.Settings.Controls[Toolbox.Controls.MoveUp]))
                 {
                     GameMap.player.Anime.FY = 3;
                     MovePlayer(Toolbox.Orientation.North, new Vector2(vCurrentPos.X, vCurrentPos.Y - 1));
                 }
-                else if (input.KeyPressed(Keys.Down) || input.KeyPressed(Keys.S))
+                else if (input.KeyPressed(Keys.Down) || input.KeyPressed(ToT.Settings.Controls[Toolbox.Controls.MoveDown]))
                 {
                     GameMap.player.Anime.FY = 0;
                     MovePlayer(Toolbox.Orientation.South, new Vector2(vCurrentPos.X, vCurrentPos.Y + 1));

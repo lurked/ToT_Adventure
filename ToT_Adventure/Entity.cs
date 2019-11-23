@@ -10,33 +10,48 @@ namespace ToT_Adventure
 {
     public class Entity
     {
+        public Animation Anime { get; set; }
         public Toolbox.EntityType Kind { get; set; }
         public Toolbox.EntityState State { get; set; }
+        public Dictionary<Toolbox.ResourceType, int> Resources { get; set; }
         public string Name { get; set; }
         public string Tooltip { get; set; }
         public string ImageName { get; set; }
         public Vector2 TileIndex { get; set; }
         public Vector2 DestTileIndex { get; set; }
-        public float DistanceTraveled { get; set; }
-        public Toolbox.Orientation Orientation { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 LevelPosition { get; set; }
+        public float DistanceTraveled { get; set; }
+        public Toolbox.Orientation Orientation { get; set; }
         public bool Visible { get; set; } = true;
+        public bool isHover { get; set; }
+
         protected Dictionary<Toolbox.Stat, float> Stats;
         protected Dictionary<Toolbox.Stat, float> Bonus;
-        public Animation Anime { get; set; }
 
         public Entity()
         {
             State = Toolbox.EntityState.Idle;
-            Stats = new Dictionary<Toolbox.Stat, float>
-            {
-                { Toolbox.Stat.HP, 1f }
-            };
+            if (Stats == null)
+                Stats = new Dictionary<Toolbox.Stat, float>
+                {
+                    { Toolbox.Stat.HP, 1f },
+                    { Toolbox.Stat.Speed, 1f }
+                };
+            if (Resources == null)
+                Resources = new Dictionary<Toolbox.ResourceType, int>
+                {
+                    { Toolbox.ResourceType.Wood, 0 },
+                    { Toolbox.ResourceType.Rock, 0 },
+                    { Toolbox.ResourceType.Crystal, 0 },
+                    { Toolbox.ResourceType.Gold, 0 }
+                };
             Tooltip = "Basic entity, so basic all it wants to do is drink pumpkin spice lattes and play candy crush.";
             ImageName = "colorwheel32";
             DestTileIndex = Vector2.Zero;
             LevelPosition = Vector2.Zero;
+            if (Bonus == null)
+                Bonus = new Dictionary<Toolbox.Stat, float>();
         }
 
         public float GetStat(Toolbox.Stat stat, bool withBonuses = true)
@@ -51,6 +66,16 @@ namespace ToT_Adventure
                     tStat += Bonus[stat];
 
             return tStat;
+        }
+
+        public int GetResource(Toolbox.ResourceType res)
+        {
+            int tRes = 0;
+
+            if (Resources.ContainsKey(res))
+                tRes = Resources[res];
+
+            return tRes;
         }
 
         public virtual void Update(GameTime gameTime)

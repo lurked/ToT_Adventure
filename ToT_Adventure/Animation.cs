@@ -97,6 +97,11 @@ namespace ToT_Adventure
             Origin = Size / 2;
         }
 
+        internal Rectangle LevelRectangle(Vector2 levelPosition, Vector2 levelTileSize)
+        {
+            return new Rectangle((int)(levelPosition.X * levelTileSize.X), (int)(levelPosition.Y * levelTileSize.Y), SourceRect.Width, SourceRect.Height);
+        }
+
         public void Update()
         {
             switch (Type)

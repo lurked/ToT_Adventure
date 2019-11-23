@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 
 namespace ToT_Adventure
@@ -20,6 +21,8 @@ namespace ToT_Adventure
         public float BorderSize { get; set; }
         public float FPScap { get; set; }
         public string TexturePath { get; set; }
+        public Dictionary<Toolbox.Controls, Keys> Controls { get; set; }
+        
 
         public Settings(string configName = "default")
         {
@@ -30,6 +33,13 @@ namespace ToT_Adventure
             BorderSize = 1f;
             FPScap = 144f;
             TexturePath = "Resources\\sprites";
+            Controls = new Dictionary<Toolbox.Controls, Keys>();
+            Controls.Add(Toolbox.Controls.MoveUp, Keys.W);
+            Controls.Add(Toolbox.Controls.MoveDown, Keys.S);
+            Controls.Add(Toolbox.Controls.MoveLeft, Keys.A);
+            Controls.Add(Toolbox.Controls.MoveRight, Keys.D);
+            Controls.Add(Toolbox.Controls.Adventure, Keys.LeftControl);
+            Controls.Add(Toolbox.Controls.Exit, Keys.Escape);
         }
 
         public void Save()

@@ -133,7 +133,8 @@ namespace ToT_Adventure
             Idle,
             Moving,
             Fighting,
-            Dancing
+            Dancing,
+            Harvesting
         }
         public enum Stat
         {
@@ -156,7 +157,25 @@ namespace ToT_Adventure
             East,
             North
         }
+
+        public enum Controls
+        {
+            MoveUp,
+            MoveDown,
+            MoveLeft,
+            MoveRight,
+            Adventure,
+            Exit
+        }
+        public enum ResourceType
+        {
+            Wood,
+            Rock,
+            Crystal,
+            Gold
+        }
         #endregion
+
         #region Tools
         public static class StaticRandom
         {

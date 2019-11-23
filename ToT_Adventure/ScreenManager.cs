@@ -250,6 +250,8 @@ namespace ToT_Adventure
                     Screens[Toolbox.ScreenType.GameOver].Draw(spriteBatch);
                     break;
             }
+            if (ToT.DebugMode)
+                spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug01.ToString()], ToT.input.MouseRectReal(ToT.PlayerCamera.Position).ToString(), ToT.input.MousePosition() + ToT.PlayerCamera.Position, Color.White);
         }
     }
 }

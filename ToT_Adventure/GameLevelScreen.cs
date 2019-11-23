@@ -12,7 +12,12 @@ namespace ToT_Adventure
 {
     public class GameLevelScreen : Screen
     {
-        
+        public class CurrentDecor
+        {
+            public int LayerIndex;
+            public Vector2 TileIndex;
+        }
+        private CurrentDecor currentThing { get; set; }
 
         public GameLevelScreen()
         {
@@ -20,7 +25,6 @@ namespace ToT_Adventure
                 [
                     ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
                 ].InitLevel();
-
         }
         public override void LoadAssets()
         {
@@ -47,8 +51,61 @@ namespace ToT_Adventure
         public override void Update(GameTime gameTime, InputManager input)
         {
             UpdatePlayer(input);
+            UpdateHover(input.MouseRectReal(ToT.PlayerCamera.Position), 
+                ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
+                [
+                    ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
+                ].Level);
+            if (currentThing != null 
+                && input.MouseClick())
+            {
+                DoCurrentThing(currentThing, 
+                    ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
+                    [
+                        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
+                    ].Level
+                );
+            }
             base.Update(gameTime, input);
+            
         }
+
+        private void DoCurrentThing(CurrentDecor currentThing, Level lvl)
+        {
+            switch(lvl.Things[currentThing.LayerIndex][currentThing.TileIndex].Kind)
+            {
+                case Toolbox.EntityType.Resource:
+                    if (lvl.Things[currentThing.LayerIndex][currentThing.TileIndex].GetType() == typeof(Tree))
+                    {
+                        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Wood]++;
+                        ((Tree)lvl.Things[currentThing.LayerIndex][currentThing.TileIndex]).ResourceQty--;
+                        if (((Tree)lvl.Things[currentThing.LayerIndex][currentThing.TileIndex]).ResourceQty <= 0)
+                            lvl.Things[currentThing.LayerIndex].Remove(currentThing.TileIndex);
+                    }
+                    break;
+            }
+        }
+
+        private void UpdateHover(Rectangle mouseRect, Level level)
+        {
+            currentThing = null;
+            foreach (KeyValuePair<int, Dictionary<Vector2, Thing>> tTs in level.Things)
+            {
+                foreach (KeyValuePair<Vector2, Thing> tT in tTs.Value)
+                {
+                    if (mouseRect.Intersects(tT.Value.Anime.LevelRectangle(tT.Key, ToT.Settings.LevelTileSize)))
+                    {
+                        tT.Value.isHover = true;
+                        currentThing = new CurrentDecor() { LayerIndex = tTs.Key, TileIndex = tT.Key };
+                    }
+                    else
+                    {
+                        tT.Value.isHover = false;
+                    }
+                }
+            }
+        }
+
         private void UpdatePlayer(InputManager input)
         {
             UpdatePlayerMovement(input);
@@ -61,30 +118,30 @@ namespace ToT_Adventure
         {
             Vector2 vCurrentPos = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.LevelPosition;
             Toolbox.Orientation ori = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Orientation;
-
+            float pSpeed = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.GetStat(Toolbox.Stat.Speed);
             ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.State = Toolbox.EntityState.Idle;
-            if (input.KeyDown(Keys.Left) || input.KeyDown(Keys.A))
+            if (input.KeyDown(Keys.Left) || input.KeyDown(ToT.Settings.Controls[Toolbox.Controls.MoveLeft]))
             {
                 ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Anime.FY = 1;
-                vCurrentPos = new Vector2(vCurrentPos.X - 1, vCurrentPos.Y);
+                vCurrentPos = new Vector2(vCurrentPos.X - pSpeed, vCurrentPos.Y);
                 ori = Toolbox.Orientation.West;
             }
-            if (input.KeyDown(Keys.Right) || input.KeyDown(Keys.D))
+            if (input.KeyDown(Keys.Right) || input.KeyDown(ToT.Settings.Controls[Toolbox.Controls.MoveRight]))
             {
                 ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Anime.FY = 2;
-                vCurrentPos = new Vector2(vCurrentPos.X + 1, vCurrentPos.Y);
+                vCurrentPos = new Vector2(vCurrentPos.X + pSpeed, vCurrentPos.Y);
                 ori = Toolbox.Orientation.East;
             }
-            if (input.KeyDown(Keys.Up) || input.KeyDown(Keys.W))
+            if (input.KeyDown(Keys.Up) || input.KeyDown(ToT.Settings.Controls[Toolbox.Controls.MoveUp]))
             {
                 ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Anime.FY = 3;
-                vCurrentPos = new Vector2(vCurrentPos.X, vCurrentPos.Y - 1);
+                vCurrentPos = new Vector2(vCurrentPos.X, vCurrentPos.Y - pSpeed);
                 ori = Toolbox.Orientation.North;
             }
-            if (input.KeyDown(Keys.Down) || input.KeyDown(Keys.S))
+            if (input.KeyDown(Keys.Down) || input.KeyDown(ToT.Settings.Controls[Toolbox.Controls.MoveDown]))
             {
                 ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Anime.FY = 0;
-                vCurrentPos = new Vector2(vCurrentPos.X, vCurrentPos.Y + 1);
+                vCurrentPos = new Vector2(vCurrentPos.X, vCurrentPos.Y + pSpeed);
                 ori = Toolbox.Orientation.South;
             }
             if (vCurrentPos != ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.LevelPosition)
@@ -135,8 +192,10 @@ namespace ToT_Adventure
                         ToT.Textures[thing.Value.ImageName],
                         thing.Key * ToT.Settings.LevelTileSize,
                         null,
-                        Color.White
+                        thing.Value.isHover ? Color.Red : Color.White
                     );
+                    if (ToT.DebugMode)
+                        spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug02.ToString()], (thing.Value.Anime.LevelRectangle(thing.Key, ToT.Settings.LevelTileSize)).ToString(), thing.Key * ToT.Settings.LevelTileSize, Color.White);
                 }
             }
 
