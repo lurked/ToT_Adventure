@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Microsoft.Xna.Framework;
-
 namespace ToT_Adventure
 {
-    public class Thing : Entity
+    public class Building : Thing
     {
-        public Vector2 Size { get; set; }
+        public Building()
+        {
 
-
+        }
     }
 }

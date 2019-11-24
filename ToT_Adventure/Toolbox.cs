@@ -126,7 +126,8 @@ namespace ToT_Adventure
             Enemy,
             NPC,
             Decor,
-            Resource
+            Resource,
+            Building
         }
         public enum EntityState
         {

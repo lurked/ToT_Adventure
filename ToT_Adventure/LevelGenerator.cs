@@ -74,34 +74,42 @@ namespace ToT_Adventure
                 }
             }
 
-            switch (tileType)
+            lvl.Things.Add(0, new Dictionary<Vector2, Thing>());
+            lvl.Things.Add(1, new Dictionary<Vector2, Thing>());
+            int nbTrees = Toolbox.StaticRandom.Instance.Next(1, 21);
+            Vector2 vTreePos;
+            for (int i = 0; i < nbTrees; i++)
             {
-                case Toolbox.TileType.Plains:
-                    lvl.Things.Add(0, new Dictionary<Vector2, Thing>());
-                    int nbTrees = Toolbox.StaticRandom.Instance.Next(1, 21);
-                    Vector2 vTreePos;
-                    for (int i = 0; i < nbTrees; i++)
-                    {
-                        do
-                        {
-                            vTreePos = new Vector2(Toolbox.StaticRandom.Instance.Next(1, (int)size.X - 1), Toolbox.StaticRandom.Instance.Next(1, (int)size.Y - 1));
-                        } while (lvl.Things[0].ContainsKey(vTreePos));
-                        int resKind = Toolbox.StaticRandom.Instance.Next(1, 4);
-                        switch (resKind)
-                        {
-                            case 1:
-                                lvl.Things[0].Add(vTreePos, new Tree());
-                                break;
-                            case 2:
-                                lvl.Things[0].Add(vTreePos, new Rock());
-                                break;
-                            case 3:
-                                lvl.Things[0].Add(vTreePos, new Crystal());
-                                break;
-                        }
-                    }
-                    break;
+                do
+                {
+                    vTreePos = new Vector2(Toolbox.StaticRandom.Instance.Next(1, (int)size.X - 1), Toolbox.StaticRandom.Instance.Next(1, (int)size.Y - 1));
+                } while (lvl.Things[0].ContainsKey(vTreePos));
+                int resKind = Toolbox.StaticRandom.Instance.Next(1, 4);
+                switch (resKind)
+                {
+                    case 1:
+                        lvl.Things[0].Add(vTreePos, new Tree());
+                        break;
+                    case 2:
+                        lvl.Things[0].Add(vTreePos, new Rock());
+                        break;
+                    case 3:
+                        lvl.Things[0].Add(vTreePos, new Crystal());
+                        break;
+                }
             }
+
+            Vector2 vHousePos = size / 2 - new Vector2(1, 2);
+            lvl.Things[1].Add(vHousePos, new House());
+            if (lvl.Things[0].ContainsKey(vHousePos))
+                lvl.Things[0].Remove(vHousePos);
+            if (lvl.Things[0].ContainsKey(vHousePos + new Vector2(1, 0)))
+                lvl.Things[0].Remove(vHousePos + new Vector2(1, 0));
+            if (lvl.Things[0].ContainsKey(vHousePos + new Vector2(0, 1)))
+                lvl.Things[0].Remove(vHousePos + new Vector2(0, 1));
+            if (lvl.Things[0].ContainsKey(vHousePos + new Vector2(1, 1)))
+                lvl.Things[0].Remove(vHousePos + new Vector2(1, 1));
+
             lvl.StartPosition = size / 2;
             return lvl;
 
@@ -152,10 +160,13 @@ namespace ToT_Adventure
                 }
             }
 
+
+
             switch(tileType)
             {
                 case Toolbox.TileType.Plains:
                     lvl.Things.Add(0, new Dictionary<Vector2, Thing>());
+                    lvl.Things.Add(1, new Dictionary<Vector2, Thing>());
                     int nbTrees = Toolbox.StaticRandom.Instance.Next(1, 21);
                     Vector2 vTreePos;
                     for (int i = 0; i < nbTrees; i++)
@@ -180,6 +191,7 @@ namespace ToT_Adventure
                     }
                     break;
             }
+            lvl.StartPosition = new Vector2(1, 1);
             return lvl;
         }
     }

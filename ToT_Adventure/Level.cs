@@ -12,6 +12,9 @@ namespace ToT_Adventure
     {
         public Dictionary<Vector2, Tile> Tileset;
         public Dictionary<int, Dictionary<Vector2, Thing>> Things;
+        //Layers :
+        //0 = Resources
+        //1 = Buildings
         public Vector2 StartPosition { get; set; }
         public Vector2 Size { get; set; }
         
@@ -22,7 +25,7 @@ namespace ToT_Adventure
             if (Things == null)
                 Things = new Dictionary<int, Dictionary<Vector2, Thing>>();
             if (StartPosition == null)
-                StartPosition = Vector2.Zero;
+                StartPosition = new Vector2(1, 1);
         }
     }
 }
