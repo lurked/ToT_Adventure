@@ -97,10 +97,38 @@ namespace ToT_Adventure
                 switch (uIAlignment)
                 {
                     case Toolbox.UIAlignment.Vertical:
-                        tStrSize += new Vector2(0, ToT.Fonts[UII.Font.ToString()].MeasureString(UII.DisplayText).Y);
+                        switch (UII.UIIType)
+                        {
+                            case Toolbox.UIItemType.ImageText:
+                                tStrSize += new Vector2(
+                                    0, 
+                                    ToT.Fonts[UII.Font.ToString()].MeasureString(UII.DisplayText).Y + ToT.Textures[UII.ImageName].Height
+                                    );
+                                break;
+                            default:
+                                tStrSize += new Vector2(
+                                    0, 
+                                    ToT.Fonts[UII.Font.ToString()].MeasureString(UII.DisplayText).Y
+                                    );
+                                break;
+                        }
                         break;
                     case Toolbox.UIAlignment.Horizontal:
-                        tStrSize += new Vector2(ToT.Fonts[UII.Font.ToString()].MeasureString(UII.DisplayText).X, 0);
+                        switch (UII.UIIType)
+                        {
+                            case Toolbox.UIItemType.ImageText:
+                                tStrSize += new Vector2(
+                                    ToT.Fonts[UII.Font.ToString()].MeasureString(UII.DisplayText).X + ToT.Textures[UII.ImageName].Width, 
+                                    0
+                                    );
+                                break;
+                            default:
+                                tStrSize += new Vector2(
+                                    ToT.Fonts[UII.Font.ToString()].MeasureString(UII.DisplayText).X, 
+                                    0
+                                    );
+                                break;
+                        }
                         break;
                 }
             }

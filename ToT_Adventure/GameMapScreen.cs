@@ -58,6 +58,28 @@ namespace ToT_Adventure
             UIs["GameMenu"].Visible = true;
         }
 
+        private void GenerateUI_Resources()
+        {
+            UI mMenuUI = new UI();
+            UIItem mMenuUII;
+            mMenuUII = new UIItem("imgGold", Toolbox.UIItemType.ImageText, GameMap.player.Resources[Toolbox.ResourceType.Gold].ToString(), new UIAction(), Toolbox.Font.menuItem02, Toolbox.TextAlignment.TopLeft, "Resource_Gold_01");
+            mMenuUI.uiItems.Add(mMenuUII);
+            mMenuUII = new UIItem("imgWood", Toolbox.UIItemType.ImageText, GameMap.player.Resources[Toolbox.ResourceType.Wood].ToString(), new UIAction(), Toolbox.Font.menuItem02, Toolbox.TextAlignment.TopLeft, "Resource_Wood_01");
+            mMenuUI.uiItems.Add(mMenuUII);
+            mMenuUII = new UIItem("imgRock", Toolbox.UIItemType.ImageText, GameMap.player.Resources[Toolbox.ResourceType.Rock].ToString(), new UIAction(), Toolbox.Font.menuItem02, Toolbox.TextAlignment.TopLeft, "Resource_Rock_01");
+            mMenuUI.uiItems.Add(mMenuUII);
+            mMenuUII = new UIItem("imgCrystal", Toolbox.UIItemType.ImageText, GameMap.player.Resources[Toolbox.ResourceType.Crystal].ToString(), new UIAction(), Toolbox.Font.menuItem02, Toolbox.TextAlignment.TopLeft, "Resource_Crystal_01");
+            mMenuUI.uiItems.Add(mMenuUII);
+            mMenuUI.uIAlignment = Toolbox.UIAlignment.Horizontal;
+
+            mMenuUI.RefreshUISize(false);
+            mMenuUI.Position = new Vector2(5, 5);
+            mMenuUI.RefreshUISize();
+
+            UIs.Add("ResourcesMenu", mMenuUI);
+            UIs["ResourcesMenu"].Visible = true;
+        }
+
         private void GenerateUI_Adventure()
         {
             UI mMenuUI = new UI();
@@ -72,13 +94,21 @@ namespace ToT_Adventure
             UIs.Add("AdventureMenu", mMenuUI);
             UIs["AdventureMenu"].Visible = true;
         }
+
+
+        public void UpdateResourcesUI()
+        {
+            UIs["ResourcesMenu"].uiItems[0].DisplayText = GameMap.player.Resources[Toolbox.ResourceType.Gold].ToString();
+            UIs["ResourcesMenu"].uiItems[1].DisplayText = GameMap.player.Resources[Toolbox.ResourceType.Wood].ToString();
+            UIs["ResourcesMenu"].uiItems[2].DisplayText = GameMap.player.Resources[Toolbox.ResourceType.Rock].ToString();
+            UIs["ResourcesMenu"].uiItems[3].DisplayText = GameMap.player.Resources[Toolbox.ResourceType.Crystal].ToString();
+        }
+        
         #endregion
 
         public override void LoadAssets()                                                                                                                                                                                       
         {
             base.LoadAssets();
-            GenerateUI_Adventure();
-            GenerateUI_SaveMenu();
             if (SaveFile != "")
             {
                 GameMap = LoadGame(SaveFile);
@@ -87,6 +117,9 @@ namespace ToT_Adventure
             {
                 GameMap = new GameMap();
             }
+            GenerateUI_Adventure();
+            GenerateUI_SaveMenu();
+            GenerateUI_Resources();
         }
 
         public override void UnloadAssets()
@@ -98,6 +131,7 @@ namespace ToT_Adventure
         public override void Update(GameTime gameTime, InputManager input)
         {
             UpdatePlayer(input);
+            UpdateResourcesUI();
             base.Update(gameTime, input);
         }
 
@@ -105,7 +139,6 @@ namespace ToT_Adventure
         {
             UpdatePlayerMovement(input);
             GameMap.player.UpdateMove();
-
             GameMap.player.Anime.Update();
         }
 
@@ -178,19 +211,7 @@ namespace ToT_Adventure
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            //Vector2 vCamOffset;
-            //switch(ToT.State)
-            //{
-            //    case Toolbox.GameState.GameMap:
-            //        vCamOffset = ToT.PlayerCamera.Position;
-            //        break;
-            //    case Toolbox.GameState.GameLevel:
-            //        vCamOffset = ToT.PlayerCamera.Position;
-            //        break;
-            //    default:
-            //        vCamOffset = new Vector2();
-            //        break;
-            //}
+
             //Draw each tile to its corresponding position according to the tile size and border size.
             foreach (KeyValuePair<Vector2, Tile> tile in GameMap.Map)
             {

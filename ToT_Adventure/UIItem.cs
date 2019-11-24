@@ -41,6 +41,13 @@ namespace ToT_Adventure
             {
                 vUIISize = new Vector2(ToT.Textures[ImageName].Width, ToT.Textures[ImageName].Height);
             }
+            else if (UIIType == Toolbox.UIItemType.ImageText)
+            {
+                vUIISize = new Vector2(
+                    ToT.Textures[ImageName].Width + ToT.Fonts[Font.ToString()].MeasureString(DisplayText).X, 
+                    ToT.Textures[ImageName].Height > (int)ToT.Fonts[Font.ToString()].MeasureString(DisplayText).Y ? ToT.Textures[ImageName].Height : (int)ToT.Fonts[Font.ToString()].MeasureString(DisplayText).Y
+                    );
+            }
             else
             {
                 vUIISize = ToT.Fonts[Font.ToString()].MeasureString(DisplayText);
@@ -100,7 +107,21 @@ namespace ToT_Adventure
                         uiiPosition + ToT.PlayerCamera.Position,
                         null,
                         Color.White
-                    );
+                        );
+                    break;
+                case Toolbox.UIItemType.ImageText:
+                    spriteBatch.Draw(
+                        ToT.Textures[ImageName],
+                        uiiPosition + ToT.PlayerCamera.Position,
+                        null,
+                        Color.White
+                        );
+                    spriteBatch.DrawString(
+                        ToT.Fonts[Font.ToString()], 
+                        DisplayText, 
+                        uiiPosition + ToT.PlayerCamera.Position + new Vector2(ToT.Textures[ImageName].Width, 0), 
+                        (Active && Action.Action != Toolbox.UIAction.Nothing) ? ActiveColor : TextColor
+                        );
                     break;
                 case Toolbox.UIItemType.TextFix:
                     spriteBatch.DrawString(ToT.Fonts[Font.ToString()], DisplayText, uiiPosition + ToT.PlayerCamera.Position, (Active && Action.Action != Toolbox.UIAction.Nothing) ? ActiveColor : TextColor);

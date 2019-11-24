@@ -17,6 +17,8 @@ namespace ToT_Adventure
                 TileIndex = Vector2.Zero;
             if (!Stats.ContainsKey(Toolbox.Stat.Speed))
                 Stats.Add(Toolbox.Stat.Speed, 2f);
+            else
+                Stats[Toolbox.Stat.Speed] = 2f;
             Orientation = Toolbox.Orientation.South;
             Anime = new Animation()
             {
@@ -42,7 +44,7 @@ namespace ToT_Adventure
                 Anime.Active = true;
                 if (DistanceTraveled < 1f)
                 {
-                    DistanceTraveled += (Stats[Toolbox.Stat.Speed] * (1/ToT.Settings.FPScap));
+                    DistanceTraveled += (Stats[Toolbox.Stat.Speed] * 1.5f * (1/ToT.Settings.FPScap));
                 }
                 if (DistanceTraveled >= 1f)
                 {

@@ -30,6 +30,7 @@ namespace ToT_Adventure
         {
             base.LoadAssets();
             GenerateUI_Adventure();
+            GenerateUI_Resources();
         }
         #region GenerateUI
         private void GenerateUI_Adventure()
@@ -46,28 +47,100 @@ namespace ToT_Adventure
             UIs.Add("GameMapMenu", mMenuUI);
             UIs["GameMapMenu"].Visible = true;
         }
+
+        private void GenerateUI_Resources()
+        {
+            UI mMenuUI = new UI();
+            UIItem mMenuUII;
+            mMenuUII = new UIItem(
+                "imgGold", 
+                Toolbox.UIItemType.ImageText, 
+                ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Gold].ToString(), 
+                new UIAction(), 
+                Toolbox.Font.menuItem02, 
+                Toolbox.TextAlignment.TopLeft, 
+                "Resource_Gold_01"
+                );
+            mMenuUI.uiItems.Add(mMenuUII);
+            mMenuUII = new UIItem(
+                "imgWood", 
+                Toolbox.UIItemType.ImageText, 
+                ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Wood].ToString(), 
+                new UIAction(), 
+                Toolbox.Font.menuItem02, 
+                Toolbox.TextAlignment.TopLeft, 
+                "Resource_Wood_01"
+                );
+            mMenuUI.uiItems.Add(mMenuUII);
+            mMenuUII = new UIItem(
+                "imgRock", 
+                Toolbox.UIItemType.ImageText, 
+                ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Rock].ToString(), 
+                new UIAction(), 
+                Toolbox.Font.menuItem02, 
+                Toolbox.TextAlignment.TopLeft, 
+                "Resource_Rock_01"
+                );
+            mMenuUI.uiItems.Add(mMenuUII);
+            mMenuUII = new UIItem(
+                "imgCrystal", 
+                Toolbox.UIItemType.ImageText, 
+                ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Crystal].ToString(), 
+                new UIAction(), 
+                Toolbox.Font.menuItem02, 
+                Toolbox.TextAlignment.TopLeft, 
+                "Resource_Crystal_01"
+                );
+            mMenuUI.uiItems.Add(mMenuUII);
+            mMenuUI.uIAlignment = Toolbox.UIAlignment.Horizontal;
+
+            mMenuUI.RefreshUISize(false);
+            mMenuUI.Position = new Vector2(5, 5);
+            mMenuUI.RefreshUISize();
+
+            UIs.Add("ResourcesMenu", mMenuUI);
+            UIs["ResourcesMenu"].Visible = true;
+        }
         #endregion
+        public void UpdateResourcesUI()
+        {
+            UIs["ResourcesMenu"].uiItems[0].DisplayText = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Gold].ToString();
+            UIs["ResourcesMenu"].uiItems[1].DisplayText = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Wood].ToString();
+            UIs["ResourcesMenu"].uiItems[2].DisplayText = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Rock].ToString();
+            UIs["ResourcesMenu"].uiItems[3].DisplayText = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Crystal].ToString();
+        }
 
         public override void Update(GameTime gameTime, InputManager input)
         {
+            //Update player state and properties
             UpdatePlayer(input);
-            UpdateHover(input.MouseRectReal(ToT.PlayerCamera.Position), 
+
+            //Update what's currently under the mouse cursor
+            UpdateHover(input.MouseRectReal(ToT.PlayerCamera.Position),
                 ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
                 [
                     ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
                 ].Level);
-            if (currentThing != null 
-                && input.MouseClick())
+
+            //Do stuff if we click on the current thing
+            ClickOnCurrentThing(input);
+
+            UpdateResourcesUI();
+
+            //Update the game state
+            base.Update(gameTime, input);
+
+        }
+
+        private void ClickOnCurrentThing(InputManager input)
+        {
+            if (currentThing != null && input.MouseClick())
             {
-                DoCurrentThing(currentThing, 
+                DoCurrentThing(currentThing,
                     ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
-                    [
-                        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
-                    ].Level
+                    [((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex].Level
                 );
             }
-            base.Update(gameTime, input);
-            
         }
 
         private void DoCurrentThing(CurrentDecor currentThing, Level lvl)
