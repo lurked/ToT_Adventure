@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Animation.cs" />
+    <Compile Include="Crystal.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="FrameCounter.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="MainMenu.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Rock.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="ScreenManager.cs" />
     <Compile Include="Settings.cs" />
@@ -244,6 +246,33 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\terrain64\tile_dirt_topright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_home_bottomleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_home_bottommiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_home_bottomright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_home_middleleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_home_middlemiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_home_middleright.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_home_topleft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_home_topmiddle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sprites\terrain64\tile_home_topright.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\sprites\terrain64\tile_montain_bottomleft.png">

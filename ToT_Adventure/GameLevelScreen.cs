@@ -155,6 +155,20 @@ namespace ToT_Adventure
                         if (((Tree)lvl.Things[currentThing.LayerIndex][currentThing.TileIndex]).ResourceQty <= 0)
                             lvl.Things[currentThing.LayerIndex].Remove(currentThing.TileIndex);
                     }
+                    else if (lvl.Things[currentThing.LayerIndex][currentThing.TileIndex].GetType() == typeof(Rock))
+                    {
+                        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Rock]++;
+                        ((Rock)lvl.Things[currentThing.LayerIndex][currentThing.TileIndex]).ResourceQty--;
+                        if (((Rock)lvl.Things[currentThing.LayerIndex][currentThing.TileIndex]).ResourceQty <= 0)
+                            lvl.Things[currentThing.LayerIndex].Remove(currentThing.TileIndex);
+                    }
+                    else if (lvl.Things[currentThing.LayerIndex][currentThing.TileIndex].GetType() == typeof(Crystal))
+                    {
+                        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Resources[Toolbox.ResourceType.Crystal]++;
+                        ((Crystal)lvl.Things[currentThing.LayerIndex][currentThing.TileIndex]).ResourceQty--;
+                        if (((Crystal)lvl.Things[currentThing.LayerIndex][currentThing.TileIndex]).ResourceQty <= 0)
+                            lvl.Things[currentThing.LayerIndex].Remove(currentThing.TileIndex);
+                    }
                     break;
             }
         }

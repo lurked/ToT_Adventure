@@ -13,13 +13,14 @@ namespace ToT_Adventure
         public Player()
         {
             Kind = Toolbox.EntityType.Player;
+
             if (TileIndex == null)
                 TileIndex = Vector2.Zero;
             if (!Stats.ContainsKey(Toolbox.Stat.Speed))
                 Stats.Add(Toolbox.Stat.Speed, 2f);
             else
                 Stats[Toolbox.Stat.Speed] = 2f;
-            Orientation = Toolbox.Orientation.South;
+
             Anime = new Animation()
             {
                 ImageName = "character_32x48",
@@ -27,6 +28,9 @@ namespace ToT_Adventure
                 Type = Toolbox.AnimationType.Spritesheet,
                 Active = true
             };
+
+            Orientation = Toolbox.Orientation.South;
+
             Anime.Init();
         }
 

@@ -210,8 +210,6 @@ namespace ToT_Adventure
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
-
             //Draw each tile to its corresponding position according to the tile size and border size.
             foreach (KeyValuePair<Vector2, Tile> tile in GameMap.Map)
             {
@@ -242,6 +240,8 @@ namespace ToT_Adventure
                 SpriteEffects.None,
                 0.0f
             );
+
+            base.Draw(spriteBatch);
         }
     }
 }
