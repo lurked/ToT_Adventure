@@ -12,6 +12,10 @@ namespace ToT_Adventure
     {
         public Vector2 Size { get; set; }
 
-
+        public Thing()
+        {
+            if (Size == null)
+                Size = Vector2.One;
+        }
     }
 }

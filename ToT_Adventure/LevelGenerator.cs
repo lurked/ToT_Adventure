@@ -100,7 +100,7 @@ namespace ToT_Adventure
             }
 
             Vector2 vHousePos = size / 2 - new Vector2(1, 2);
-            lvl.Things[1].Add(vHousePos, new House());
+            lvl.Things[1].Add(vHousePos, new House() { Size = new Vector2(2, 2) } );
             if (lvl.Things[0].ContainsKey(vHousePos))
                 lvl.Things[0].Remove(vHousePos);
             if (lvl.Things[0].ContainsKey(vHousePos + new Vector2(1, 0)))

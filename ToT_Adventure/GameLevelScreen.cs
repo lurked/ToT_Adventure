@@ -248,9 +248,52 @@ namespace ToT_Adventure
                 && vDestPos.Y >= ToT.Settings.LevelTileSize.Y / 2
                 && vDestPos.Y <= vLvlArea.Y - ToT.Settings.LevelTileSize.Y / 2)
             {
-                ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.State = Toolbox.EntityState.Moving;
-                ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.LevelMoveTo(orientation, vDestPos);
+                if (
+                    !CheckIfThingBlocking(
+                        vDestPos, 
+                        pSourceRect, 
+                        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
+                        [
+                            ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
+                        ].Level.Things
+                        )
+                    )
+                {
+                    ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.State = Toolbox.EntityState.Moving;
+                    ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.LevelMoveTo(orientation, vDestPos);
+                }
             }
+        }
+
+        private bool CheckIfThingBlocking(Vector2 vDestPos, Rectangle pSourceRect, Dictionary<int, Dictionary<Vector2, Thing>> things)
+        {
+            Rectangle rectThing;
+            bool hasThing = false;
+            Rectangle rectPlayer;
+            rectPlayer = new Rectangle(
+                            (int)(vDestPos.X),
+                            (int)(vDestPos.Y),
+                            pSourceRect.Width,
+                            pSourceRect.Height
+                            );
+            foreach (KeyValuePair<int, Dictionary<Vector2, Thing>> tTs in things)
+            {
+                foreach(KeyValuePair<Vector2, Thing> tT in tTs.Value)
+                {
+                    rectThing = new Rectangle(
+                        (int)(tT.Key.X * ToT.Settings.LevelTileSize.X), 
+                        (int)(tT.Key.Y * ToT.Settings.LevelTileSize.Y), 
+                        tT.Value.Anime.SourceRect.Width, 
+                        tT.Value.Anime.SourceRect.Height
+                        );
+                    if (rectPlayer.Intersects(rectThing))
+                    {
+                        hasThing = true;
+                        return hasThing;
+                    }
+                }
+            }
+            return hasThing;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -302,6 +345,16 @@ namespace ToT_Adventure
                 SpriteEffects.None,
                 0.0f
             );
+            Player tPlayer = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player;
+            Rectangle rectPlayer;
+            rectPlayer = new Rectangle(
+                            pSourceRect.X + (int)(tPlayer.LevelPosition.X),
+                            pSourceRect.Y + (int)(tPlayer.LevelPosition.Y),
+                            pSourceRect.Width,
+                            pSourceRect.Height
+                            );
+            if (ToT.DebugMode)
+                spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug02.ToString()], rectPlayer.ToString(), tPlayer.LevelPosition, Color.White);
 
             base.Draw(spriteBatch);
         }
