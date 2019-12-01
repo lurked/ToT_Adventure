@@ -24,7 +24,7 @@ namespace ToT_Adventure
         public float DistanceTraveled { get; set; }
         public Toolbox.Orientation Orientation { get; set; }
         public bool Visible { get; set; } = true;
-        public bool isHover { get; set; }
+        public bool IsHover { get; set; }
 
         protected Dictionary<Toolbox.Stat, float> Stats;
         protected Dictionary<Toolbox.Stat, float> Bonus;

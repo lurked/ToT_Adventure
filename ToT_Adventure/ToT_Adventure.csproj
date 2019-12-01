@@ -59,6 +59,7 @@
     <Compile Include="MainMenu.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="RandomLevelGenerator.cs" />
     <Compile Include="Rock.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="ScreenManager.cs" />
@@ -77,6 +78,9 @@
     <Compile Include="UIItem.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MersenneTwister, Version=1.0.7081.25709, Culture=neutral, PublicKeyToken=9c84633ec57842f3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MersenneTwister.1.0.6\lib\portable-net45+netcore45+win8+wp8\MersenneTwister.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
@@ -91,6 +95,7 @@
     <EmbeddedResource Include="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LICENSES-MersenneTwister.txt" />
     <Content Include="Resources\sprites\barn_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

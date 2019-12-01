@@ -33,13 +33,15 @@ namespace ToT_Adventure
             BorderSize = 1f;
             FPScap = 144f;
             TexturePath = "Resources\\sprites";
-            Controls = new Dictionary<Toolbox.Controls, Keys>();
-            Controls.Add(Toolbox.Controls.MoveUp, Keys.W);
-            Controls.Add(Toolbox.Controls.MoveDown, Keys.S);
-            Controls.Add(Toolbox.Controls.MoveLeft, Keys.A);
-            Controls.Add(Toolbox.Controls.MoveRight, Keys.D);
-            Controls.Add(Toolbox.Controls.Adventure, Keys.LeftControl);
-            Controls.Add(Toolbox.Controls.Exit, Keys.Escape);
+            Controls = new Dictionary<Toolbox.Controls, Keys>
+            {
+                { Toolbox.Controls.MoveUp, Keys.W },
+                { Toolbox.Controls.MoveDown, Keys.S },
+                { Toolbox.Controls.MoveLeft, Keys.A },
+                { Toolbox.Controls.MoveRight, Keys.D },
+                { Toolbox.Controls.Adventure, Keys.LeftControl },
+                { Toolbox.Controls.Exit, Keys.Escape }
+            };
         }
 
         public void Save()

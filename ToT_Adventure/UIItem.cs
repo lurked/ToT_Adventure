@@ -73,7 +73,7 @@ namespace ToT_Adventure
         {
             Font = font;
             DisplayText = displayText;
-            TextAlign = Toolbox.TextAlignment.MiddleCenter;
+            TextAlign = textAlign;
             TextColor = Color.White;
             Visible = true;
             Action = action;

@@ -17,7 +17,7 @@ namespace ToT_Adventure
             public int LayerIndex;
             public Vector2 TileIndex;
         }
-        private CurrentDecor currentThing { get; set; }
+        private CurrentDecor CurrentThing { get; set; }
 
         public GameLevelScreen()
         {
@@ -134,9 +134,9 @@ namespace ToT_Adventure
 
         private void ClickOnCurrentThing(InputManager input)
         {
-            if (currentThing != null && input.MouseClick())
+            if (CurrentThing != null && input.MouseClick())
             {
-                DoCurrentThing(currentThing,
+                DoCurrentThing(CurrentThing,
                     ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
                     [((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex].Level
                 );
@@ -175,19 +175,19 @@ namespace ToT_Adventure
 
         private void UpdateHover(Rectangle mouseRect, Level level)
         {
-            currentThing = null;
+            CurrentThing = null;
             foreach (KeyValuePair<int, Dictionary<Vector2, Thing>> tTs in level.Things)
             {
                 foreach (KeyValuePair<Vector2, Thing> tT in tTs.Value)
                 {
                     if (mouseRect.Intersects(tT.Value.Anime.LevelRectangle(tT.Key, ToT.Settings.LevelTileSize)))
                     {
-                        tT.Value.isHover = true;
-                        currentThing = new CurrentDecor() { LayerIndex = tTs.Key, TileIndex = tT.Key };
+                        tT.Value.IsHover = true;
+                        CurrentThing = new CurrentDecor() { LayerIndex = tTs.Key, TileIndex = tT.Key };
                     }
                     else
                     {
-                        tT.Value.isHover = false;
+                        tT.Value.IsHover = false;
                     }
                 }
             }
@@ -237,7 +237,7 @@ namespace ToT_Adventure
         private void MovePlayer(Toolbox.Orientation orientation, Vector2 vDestPos)
         {
             Rectangle pSourceRect = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Anime.SourceRect;
-            Vector2 origin = new Vector2(pSourceRect.Width / 2, pSourceRect.Height / 2);
+            //Vector2 origin = new Vector2(pSourceRect.Width / 2, pSourceRect.Height / 2);
             Vector2 vLvlArea = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
                 [
                     ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
@@ -322,7 +322,7 @@ namespace ToT_Adventure
                         ToT.Textures[thing.Value.ImageName],
                         thing.Key * ToT.Settings.LevelTileSize,
                         null,
-                        thing.Value.isHover ? Color.Red : Color.White
+                        thing.Value.IsHover ? Color.Red : Color.White
                     );
                     if (ToT.DebugMode)
                         spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug02.ToString()], (thing.Value.Anime.LevelRectangle(thing.Key, ToT.Settings.LevelTileSize)).ToString(), thing.Key * ToT.Settings.LevelTileSize, Color.White);
