@@ -27,7 +27,7 @@ namespace ToT_Adventure
         public Settings(string configName = "default")
         {
             ConfigName = configName;
-            Resolution = new Vector2(1440, 900);
+            Resolution = new Vector2(1600, 900);
             TileSize = new Vector2(128, 128);
             LevelTileSize = new Vector2(64, 64);
             BorderSize = 1f;

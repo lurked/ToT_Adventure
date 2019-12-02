@@ -243,26 +243,26 @@ namespace ToT_Adventure
                     ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
                 ].Level.Size * ToT.Settings.LevelTileSize;
             //vDestPos = vDestPos - origin;
-            if (vDestPos.X >= ToT.Settings.LevelTileSize.X / 2
-                && vDestPos.X <= vLvlArea.X - ToT.Settings.LevelTileSize.X / 2
-                && vDestPos.Y >= ToT.Settings.LevelTileSize.Y / 2
-                && vDestPos.Y <= vLvlArea.Y - ToT.Settings.LevelTileSize.Y / 2)
-            {
-                if (
-                    !CheckIfThingBlocking(
-                        vDestPos, 
-                        pSourceRect, 
-                        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
-                        [
-                            ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
-                        ].Level.Things
-                        )
-                    )
-                {
+            //if (vDestPos.X >= ToT.Settings.LevelTileSize.X / 2
+            //    && vDestPos.X <= vLvlArea.X - ToT.Settings.LevelTileSize.X / 2
+            //    && vDestPos.Y >= ToT.Settings.LevelTileSize.Y / 2
+            //    && vDestPos.Y <= vLvlArea.Y - ToT.Settings.LevelTileSize.Y / 2)
+            //{
+                //if (
+                //    !CheckIfThingBlocking(
+                //        vDestPos, 
+                //        pSourceRect, 
+                //        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
+                //        [
+                //            ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
+                //        ].Level.Things
+                //        )
+                //    )
+                //{
                     ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.State = Toolbox.EntityState.Moving;
                     ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.LevelMoveTo(orientation, vDestPos);
-                }
-            }
+                //}
+            //}
         }
 
         private bool CheckIfThingBlocking(Vector2 vDestPos, Rectangle pSourceRect, Dictionary<int, Dictionary<Vector2, Thing>> things)
@@ -296,38 +296,100 @@ namespace ToT_Adventure
             return hasThing;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        private static string GetImgName(Toolbox.TileType tileType, int iLen, int jLen, int iInd, int jInd)
         {
-            foreach (KeyValuePair<Vector2, Tile> tile in ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
-                [
-                    ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
-                ].Level.Tileset)
+            string imgPrefix = "terrain{tilesize}\\tile_{terrain}_{spriteposY}{spriteposX}";
+            string imgName = "";
+            string imgPrename;
+            imgPrefix = imgPrefix.Replace("{tilesize}", ToT.Settings.LevelTileSize.X.ToString());
+            imgPrefix = imgPrefix.Replace("{terrain}", tileType.ToString().ToLower().Replace("level_", ""));
+            if (iInd == 0)
             {
-                spriteBatch.Draw(
-                    ToT.Textures[tile.Value.ImageName],
-                    tile.Key * ToT.Settings.LevelTileSize,
-                    null,
-                    Color.White
-                );
+                imgPrename = imgPrefix.Replace("{spriteposX}", "left");
+            }
+            else if (iInd == iLen - 1)
+            {
+                imgPrename = imgPrefix.Replace("{spriteposX}", "right");
+            }
+            else
+            {
+                imgPrename = imgPrefix.Replace("{spriteposX}", "middle");
             }
 
-            foreach (KeyValuePair<int, Dictionary<Vector2, Thing>> things in ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
+            imgName = imgPrename;
+            if (jInd == 0)
+            {
+                imgName = imgName.Replace("{spriteposY}", "top");
+            }
+            else if (jInd == jLen - 1)
+            {
+                imgName = imgName.Replace("{spriteposY}", "bottom");
+            }
+            else
+            {
+                imgName = imgName.Replace("{spriteposY}", "middle");
+            }
+
+            return imgName;
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            string imgName;
+            int iRoom = 0;
+
+            foreach (KeyValuePair<Vector2, int[,]> arrRoom in ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
                 [
                     ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
-                ].Level.Things)
+                ].Level.Map)
             {
-                foreach(KeyValuePair<Vector2, Thing> thing in things.Value)
+                for (int i = 0; i < arrRoom.Value.GetLength(0); i++)
                 {
-                    spriteBatch.Draw(
-                        ToT.Textures[thing.Value.ImageName],
-                        thing.Key * ToT.Settings.LevelTileSize,
-                        null,
-                        thing.Value.IsHover ? Color.Red : Color.White
-                    );
-                    if (ToT.DebugMode)
-                        spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug02.ToString()], (thing.Value.Anime.LevelRectangle(thing.Key, ToT.Settings.LevelTileSize)).ToString(), thing.Key * ToT.Settings.LevelTileSize, Color.White);
+                    for (int j = 0; j < arrRoom.Value.GetLength(1); j++)
+                    {
+                        if (arrRoom.Value[i, j] == 1)
+                        {
+                            int iLen = arrRoom.Value.GetLength(0);
+                            int jLen = arrRoom.Value.GetLength(1);
+                            imgName = GetImgName(Toolbox.TileType.Level_Plains, iLen, jLen, i, j);
+                            spriteBatch.Draw(ToT.Textures[imgName], arrRoom.Key * ToT.Settings.LevelTileSize + new Vector2(i, j) * ToT.Settings.LevelTileSize, null, Color.White);
+                        }
+                    }
                 }
+                spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug02.ToString()], iRoom.ToString(), arrRoom.Key * ToT.Settings.LevelTileSize, Color.White);
+                iRoom++;
             }
+
+            //foreach (KeyValuePair<Vector2, Tile> tile in ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
+            //    [
+            //        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
+            //    ].Level.Tileset)
+            //{
+            //    spriteBatch.Draw(
+            //        ToT.Textures[tile.Value.ImageName],
+            //        tile.Key * ToT.Settings.LevelTileSize,
+            //        null,
+            //        Color.White
+            //    );
+            //}
+
+            //foreach (KeyValuePair<int, Dictionary<Vector2, Thing>> things in ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
+            //    [
+            //        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
+            //    ].Level.Things)
+            //{
+            //    foreach(KeyValuePair<Vector2, Thing> thing in things.Value)
+            //    {
+            //        spriteBatch.Draw(
+            //            ToT.Textures[thing.Value.ImageName],
+            //            thing.Key * ToT.Settings.LevelTileSize,
+            //            null,
+            //            thing.Value.IsHover ? Color.Red : Color.White
+            //        );
+            //        if (ToT.DebugMode)
+            //            spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug02.ToString()], (thing.Value.Anime.LevelRectangle(thing.Key, ToT.Settings.LevelTileSize)).ToString(), thing.Key * ToT.Settings.LevelTileSize, Color.White);
+            //    }
+            //}
 
             //Draw the player(s)
             Rectangle pSourceRect = ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.Anime.SourceRect;

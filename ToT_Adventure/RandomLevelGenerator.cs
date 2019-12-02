@@ -10,6 +10,6 @@ namespace ToT_Adventure
 {
     public class RandomLevelGenerator
     {
-
+        
     }
 }
