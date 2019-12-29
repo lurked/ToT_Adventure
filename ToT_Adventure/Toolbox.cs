@@ -193,6 +193,43 @@ namespace ToT_Adventure
             public static Random Instance { get { return threadLocal.Value; } }
 
         }
+
+        public static string GetImgName(Toolbox.TileType tileType, int iLen, int jLen, int iInd, int jInd)
+        {
+            string imgPrefix = "terrain{tilesize}\\tile_{terrain}_{spriteposY}{spriteposX}";
+            string imgName = "";
+            string imgPrename;
+            imgPrefix = imgPrefix.Replace("{tilesize}", ToT.Settings.LevelTileSize.X.ToString());
+            imgPrefix = imgPrefix.Replace("{terrain}", tileType.ToString().ToLower().Replace("level_", ""));
+            if (iInd == 0)
+            {
+                imgPrename = imgPrefix.Replace("{spriteposX}", "left");
+            }
+            else if (iInd == iLen)
+            {
+                imgPrename = imgPrefix.Replace("{spriteposX}", "right");
+            }
+            else
+            {
+                imgPrename = imgPrefix.Replace("{spriteposX}", "middle");
+            }
+
+            imgName = imgPrename;
+            if (jInd == 0)
+            {
+                imgName = imgName.Replace("{spriteposY}", "top");
+            }
+            else if (jInd == jLen)
+            {
+                imgName = imgName.Replace("{spriteposY}", "bottom");
+            }
+            else
+            {
+                imgName = imgName.Replace("{spriteposY}", "middle");
+            }
+
+            return imgName;
+        }
         #endregion
     }
 }

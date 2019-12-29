@@ -59,6 +59,7 @@ namespace ToT_Adventure
                             };
                         else
                             tTile = new LevelTile();
+                        tTile.ImageName = Toolbox.GetImgName(Toolbox.TileType.Plains, tRoom.Value.GetUpperBound(0), tRoom.Value.GetUpperBound(1), i, j);
                         tileset.Add(tPos, tTile);
                     }
                 }

@@ -322,68 +322,47 @@ namespace ToT_Adventure
             return hasThing;
         }
 
-        private static string GetImgName(Toolbox.TileType tileType, int iLen, int jLen, int iInd, int jInd)
-        {
-            string imgPrefix = "terrain{tilesize}\\tile_{terrain}_{spriteposY}{spriteposX}";
-            string imgName = "";
-            string imgPrename;
-            imgPrefix = imgPrefix.Replace("{tilesize}", ToT.Settings.LevelTileSize.X.ToString());
-            imgPrefix = imgPrefix.Replace("{terrain}", tileType.ToString().ToLower().Replace("level_", ""));
-            if (iInd == 0)
-            {
-                imgPrename = imgPrefix.Replace("{spriteposX}", "left");
-            }
-            else if (iInd == iLen - 1)
-            {
-                imgPrename = imgPrefix.Replace("{spriteposX}", "right");
-            }
-            else
-            {
-                imgPrename = imgPrefix.Replace("{spriteposX}", "middle");
-            }
-
-            imgName = imgPrename;
-            if (jInd == 0)
-            {
-                imgName = imgName.Replace("{spriteposY}", "top");
-            }
-            else if (jInd == jLen - 1)
-            {
-                imgName = imgName.Replace("{spriteposY}", "bottom");
-            }
-            else
-            {
-                imgName = imgName.Replace("{spriteposY}", "middle");
-            }
-
-            return imgName;
-        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             string imgName;
-            int iRoom = 0;
+            //int iRoom = 0;
 
-            foreach (KeyValuePair<Vector2, int[,]> arrRoom in ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
+            //foreach (KeyValuePair<Vector2, int[,]> arrRoom in ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
+            //    [
+            //        ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
+            //    ].Level.Map)
+            //{
+            //    for (int i = 0; i < arrRoom.Value.GetLength(0); i++)
+            //    {
+            //        for (int j = 0; j < arrRoom.Value.GetLength(1); j++)
+            //        {
+            //            if (arrRoom.Value[i, j] == 1)
+            //            {
+            //                int iLen = arrRoom.Value.GetLength(0);
+            //                int jLen = arrRoom.Value.GetLength(1);
+            //                imgName = GetImgName(Toolbox.TileType.Level_Plains, iLen, jLen, i, j);
+            //                spriteBatch.Draw(ToT.Textures[imgName], arrRoom.Key * ToT.Settings.LevelTileSize + new Vector2(i, j) * ToT.Settings.LevelTileSize, null, Color.White);
+            //            }
+            //        }
+            //    }
+            //    spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug02.ToString()], iRoom.ToString(), arrRoom.Key * ToT.Settings.LevelTileSize, Color.White);
+            //    iRoom++;
+            //}
+
+            //New Tileset Draw
+
+            foreach (KeyValuePair<Vector2, LevelTile> tLTile in ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
                 [
                     ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
-                ].Level.Map)
+                ].Level.Tileset)
             {
-                for (int i = 0; i < arrRoom.Value.GetLength(0); i++)
-                {
-                    for (int j = 0; j < arrRoom.Value.GetLength(1); j++)
-                    {
-                        if (arrRoom.Value[i, j] == 1)
-                        {
-                            int iLen = arrRoom.Value.GetLength(0);
-                            int jLen = arrRoom.Value.GetLength(1);
-                            imgName = GetImgName(Toolbox.TileType.Level_Plains, iLen, jLen, i, j);
-                            spriteBatch.Draw(ToT.Textures[imgName], arrRoom.Key * ToT.Settings.LevelTileSize + new Vector2(i, j) * ToT.Settings.LevelTileSize, null, Color.White);
-                        }
-                    }
-                }
-                spriteBatch.DrawString(ToT.Fonts[Toolbox.Font.debug02.ToString()], iRoom.ToString(), arrRoom.Key * ToT.Settings.LevelTileSize, Color.White);
-                iRoom++;
+                spriteBatch.Draw(
+                    ToT.Textures[tLTile.Value.ImageName],
+                    tLTile.Key * ToT.Settings.LevelTileSize,
+                   null,
+                    Color.White
+                );
             }
 
             //foreach (KeyValuePair<Vector2, Tile> tile in ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
