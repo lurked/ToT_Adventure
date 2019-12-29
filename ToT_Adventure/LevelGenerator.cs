@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace ToT_Adventure
 {
-    public class LevelGenerator
+    public class LevelGenerator_old
     {
         public static Level Generate(string lvlType, Vector2 size, Toolbox.TileType tileType)
         {
@@ -70,7 +70,7 @@ namespace ToT_Adventure
                         imgName = imgName.Replace("{spriteposY}", "middle");
                     }
                     tTile = new Tile(imgName, Toolbox.TileType.Level_Plains);
-                    lvl.Tileset.Add(new Vector2(i, j), tTile);
+                    //lvl.Tileset.Add(new Vector2(i, j), tTile);
                 }
             }
 
@@ -156,7 +156,7 @@ namespace ToT_Adventure
                         imgName = imgName.Replace("{spriteposY}", "middle");
                     }
                     tTile = new Tile(imgName, Toolbox.TileType.Level_Plains);
-                    lvl.Tileset.Add(new Vector2(i, j), tTile);
+                    //lvl.Tileset.Add(new Vector2(i, j), tTile);
                 }
             }
 

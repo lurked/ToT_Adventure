@@ -17,9 +17,9 @@ namespace ToT_Adventure
             if (TileIndex == null)
                 TileIndex = Vector2.Zero;
             if (!Stats.ContainsKey(Toolbox.Stat.Speed))
-                Stats.Add(Toolbox.Stat.Speed, 2f);
+                Stats.Add(Toolbox.Stat.Speed, 4f);
             else
-                Stats[Toolbox.Stat.Speed] = 2f;
+                Stats[Toolbox.Stat.Speed] = 4f;
 
             Anime = new Animation()
             {

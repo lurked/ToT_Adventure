@@ -49,11 +49,13 @@ namespace ToT_Adventure
             {
                 if (((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex == Vector2.Zero)
                 {
-                    Level = LevelGenerator.Generate("home", new Vector2(20, 14), TileType);
+                    //Level = LevelGenerator.Generate("home", new Vector2(20, 14), TileType);
+                    Level = new Level("home");
                 }
                 else
                 {
-                    Level = LevelGenerator.Generate("basic", new Vector2(Toolbox.StaticRandom.Instance.Next(9, 19), Toolbox.StaticRandom.Instance.Next(9, 19)), TileType);
+                    //Level = LevelGenerator.Generate("basic", new Vector2(Toolbox.StaticRandom.Instance.Next(9, 19), Toolbox.StaticRandom.Instance.Next(9, 19)), TileType);
+                    Level = new Level();
                 }
             }
             

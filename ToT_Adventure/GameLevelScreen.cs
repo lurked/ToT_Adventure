@@ -259,10 +259,36 @@ namespace ToT_Adventure
                 //        )
                 //    )
                 //{
-                    ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.State = Toolbox.EntityState.Moving;
-                    ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.LevelMoveTo(orientation, vDestPos);
+            if (IsMoveableTo(vDestPos, ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.Map
+                        [
+                            ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.TileIndex
+                        ].Level))
+            {
+                ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.State = Toolbox.EntityState.Moving;
+                ((GameMapScreen)ToT.screenManager.Screens[Toolbox.ScreenType.GameMap]).GameMap.player.LevelMoveTo(orientation, vDestPos);
+            }
                 //}
             //}
+        }
+
+        private bool IsMoveableTo(Vector2 vDestPos, Level level)
+        {
+            bool isMoveable = false;
+
+            foreach (KeyValuePair<Vector2, LevelTile> tM in level.Tileset)
+            {
+                if (vDestPos.X >= tM.Key.X * ToT.Settings.LevelTileSize.X 
+                    && vDestPos.X <= (tM.Key.X + 1) * ToT.Settings.LevelTileSize.X
+                    && vDestPos.Y >= tM.Key.Y * ToT.Settings.LevelTileSize.Y
+                    && vDestPos.Y <= (tM.Key.Y + 1) * ToT.Settings.LevelTileSize.Y)
+                {
+                    if (tM.Value.Walkable)
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            return isMoveable;
         }
 
         private bool CheckIfThingBlocking(Vector2 vDestPos, Rectangle pSourceRect, Dictionary<int, Dictionary<Vector2, Thing>> things)
