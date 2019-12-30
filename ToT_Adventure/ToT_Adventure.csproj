@@ -54,7 +54,6 @@
     <Compile Include="InputManager.cs" />
     <Compile Include="GameMapScreen.cs" />
     <Compile Include="Level.cs" />
-    <Compile Include="LevelGenerator.cs" />
     <Compile Include="LevelTile.cs" />
     <Compile Include="LoadGameScreen.cs" />
     <Compile Include="MainMenu.cs" />
@@ -62,6 +61,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="RLGenerator.cs" />
     <Compile Include="Rock.cs" />
+    <Compile Include="Room.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="ScreenManager.cs" />
     <Compile Include="Settings.cs" />

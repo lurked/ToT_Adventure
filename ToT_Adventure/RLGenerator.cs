@@ -10,9 +10,9 @@ namespace ToT_Adventure
 {
     public static class RLGenerator
     {
-        public static Dictionary<Vector2, int[,]> GenerateMap(string lvlBase)
+        public static Dictionary<Vector2, Room> GenerateMap(string lvlBase)
         {
-            Dictionary<Vector2, int[,]> tMap = new Dictionary<Vector2, int[,]>();
+            Dictionary<Vector2, Room> tMap = new Dictionary<Vector2, Room>();
             int iX;
             int iY;
             int iLastX = 0;
@@ -70,9 +70,9 @@ namespace ToT_Adventure
                         }
                     }
                     bOverlapses = false;
-                    foreach (KeyValuePair<Vector2, int[,]> tRoom in tMap)
+                    foreach (KeyValuePair<Vector2, Room> tRoom in tMap)
                     {
-                        if (Intersects(tRoom.Key, new Vector2(tRoom.Value.GetLength(0), tRoom.Value.GetLength(1)), tempPos, new Vector2(iX, iY)))
+                        if (Intersects(tRoom.Key, new Vector2(tRoom.Value.Size.GetLength(0), tRoom.Value.Size.GetLength(1)), tempPos, new Vector2(iX, iY)))
                         {
                             bOverlapses = true;
                             break;
@@ -86,7 +86,29 @@ namespace ToT_Adventure
                 iLastX = iX;
                 iLastY = iY;
                 LastRoomOri = roomOri;
-                tMap.Add(currentPos, tArr);
+                Toolbox.Orientation gateOrientation = Toolbox.Orientation.North;
+                //0 = North, 1 = East, 2 = South, 3 = West
+                switch (roomOri)
+                {
+                    case 0:
+                        gateOrientation = Toolbox.Orientation.South;
+                        break;
+                    case 1:
+                        gateOrientation = Toolbox.Orientation.West;
+                        break;
+                    case 2:
+                        gateOrientation = Toolbox.Orientation.North;
+                        break;
+                    case 3:
+                        gateOrientation = Toolbox.Orientation.East;
+                        break;
+                }
+                Room tNewRoom = new Room
+                {
+                    Size = tArr,
+                    GateOrientation = gateOrientation
+                };
+                tMap.Add(currentPos, tNewRoom);
             }
             return tMap;
         }

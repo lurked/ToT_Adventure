@@ -16,8 +16,18 @@ namespace ToT_Adventure
 
         public LevelTile()
         {
-            if (ImageName == "")
-                ImageName = "tile_home_middlemiddle";
+            if (ImageName == "" || ImageName == null)
+            {
+                string imgPrefix = "terrain{tilesize}\\tile_home_middlemiddle";
+                imgPrefix = imgPrefix.Replace("{tilesize}", ToT.Settings.LevelTileSize.X.ToString());
+                ImageName = imgPrefix;
+            }
+        }
+        public void SetImgRoad()
+        {
+            string imgPrefix = "terrain{tilesize}\\tile_montain_middlemiddle";
+            imgPrefix = imgPrefix.Replace("{tilesize}", ToT.Settings.LevelTileSize.X.ToString());
+            ImageName = imgPrefix;
         }
     }
 }
