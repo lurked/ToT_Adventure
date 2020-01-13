@@ -15,11 +15,13 @@ namespace ToT_Adventure
         public Toolbox.TileType TileType { get; set; }
 
         public Level Level { get; set; }
+        public Toolbox.BiomeType Biome { get; set; }
 
         public Tile()
         {
             ImageName = "main_01_" + ToT.Settings.TileSize.X.ToString();
             TileType = Toolbox.TileType.Home;
+            Biome = Toolbox.BiomeType.Forest;
         }
         public Tile(string imageName, Toolbox.TileType tileType = Toolbox.TileType.Plains)
         {

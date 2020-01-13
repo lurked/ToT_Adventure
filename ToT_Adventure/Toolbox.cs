@@ -175,6 +175,25 @@ namespace ToT_Adventure
             Crystal,
             Gold
         }
+        public enum NodeType
+        {
+            Resource_Wood,
+            Resource_Rock,
+            Resource_Crystal,
+            Resource_Gold,
+            Resource_Mixed,
+            Monsters
+        }
+        public enum BiomeType
+        {
+            Dirt,
+            Plains,
+            Forest,
+            Ice,
+            Swamp,
+            Lava,
+            Desert
+        }
         #endregion
 
         #region Tools

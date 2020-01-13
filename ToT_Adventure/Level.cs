@@ -18,7 +18,8 @@ namespace ToT_Adventure
         //1 = Buildings
         public Vector2 StartPosition { get; set; }
         public Vector2 Size { get; set; }
-        
+        public int Lvl { get; set; }
+
         public Level(string lvlBase = "")
         {
             if (Things == null)

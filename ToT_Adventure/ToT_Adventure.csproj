@@ -58,6 +58,7 @@
     <Compile Include="LoadGameScreen.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="RLGenerator.cs" />
     <Compile Include="Rock.cs" />
